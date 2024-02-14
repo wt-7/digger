@@ -1,0 +1,39 @@
+[package]
+name = "digger"
+version = "0.0.1"
+description = "Fast and lightweight text search tool for multiple file formats"
+authors = ["wt-7"]
+license = "MIT"
+repository = "github.com/wt-7/digger"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1.4", features = [] }
+
+
+[dependencies]
+tauri = { version = "1.4", features = ["dialog-all", "shell-open"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0.75"
+jwalk = "0.8.1"
+rayon = "1.7.0"
+zip = "0.6.6"
+quick-xml = "0.30.0"
+aho-corasick = "1.1.1"
+time = { version = "0.3.28", features = [
+    "serde",
+    "parsing",
+    "macros",
+    "formatting",
+] }
+pdf-extract = "0.7.2"
+tempfile = "3.9.0"
+
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
