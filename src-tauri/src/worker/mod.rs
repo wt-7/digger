@@ -15,7 +15,7 @@ impl SearchWorker {
         if self.extensions.is_empty() {
             return true;
         }
-        // Extensions should always be a small, deduped list.
+        // Extensions will always be a small, deduped array.
         // Lookup should be faster with a Vec than a HashSet.
 
         let file_extension = path

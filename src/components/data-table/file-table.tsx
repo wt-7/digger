@@ -31,7 +31,7 @@ import { DataTablePagination } from "./data-table-pagination";
 import { useAtom } from "jotai";
 import { currentPreview } from "@/atoms";
 import { MatchedFile } from "@/lib/hooks/use-files";
-import { RowContextMenu } from "../row-context";
+import { RowContextMenu } from "./row-context";
 
 interface FileTableProps {
   columns: ColumnDef<MatchedFile>[];
@@ -67,8 +67,7 @@ export function FileTable({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     enableMultiRowSelection: false,
-    // Currently, the only use for the row selection is to highlight which row is selected for the preview.
-    // As there should only be one preview at a time, we don't need to support multi-row selection.
+    // Mutli row selection must be off for the preview to work
 
     state: {
       sorting,

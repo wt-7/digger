@@ -2,7 +2,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { DataTableColumnHeader } from "./data-table-header";
 import { ContextHoverCard } from "./context-hover-card";
-import { Badge } from "../ui/badge";
 import { PathHoverCard } from "./path-hover-card";
 
 export const columns: ColumnDef<MatchedFile>[] = [

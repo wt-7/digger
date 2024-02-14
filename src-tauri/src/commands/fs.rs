@@ -1,6 +1,5 @@
-use std::path::Path;
-
 use anyhow::Context;
+use std::path::Path;
 
 #[tauri::command]
 pub async fn open_in_explorer(path: &str) -> Result<(), String> {

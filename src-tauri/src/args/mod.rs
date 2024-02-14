@@ -8,7 +8,7 @@ mod needle;
 pub use self::needle::Needle;
 
 /// Arguments passed to the application from the frontend.
-/// Tauri handles the deserialization of the arguments when used in a tauri::command
+/// Tauri handles the deserialization of the struct when used in a tauri::command
 #[derive(Debug, Clone, serde::Deserialize)]
 pub struct Args {
     path: String,
