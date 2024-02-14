@@ -31,7 +31,7 @@ import { DataTablePagination } from "./data-table-pagination";
 import { useAtom } from "jotai";
 import { currentPreview } from "@/atoms";
 import { MatchedFile } from "@/lib/hooks/use-files";
-import { RowContextMenu } from "./row-context";
+import { RowContextMenu } from "./row-context-menu";
 
 interface FileTableProps {
   columns: ColumnDef<MatchedFile>[];
