@@ -3,7 +3,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
-import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 
 interface PathHoverCardProps {
   path: string;
@@ -14,10 +14,9 @@ export function PathHoverCard({ path, filename }: PathHoverCardProps) {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        {/* Empty div fixes a styling issue with using asChild */}
-        <div>
-          <Badge variant={"outline"}>{filename}</Badge>
-        </div>
+        <Button variant={"outline"} size={"sm"}>
+          {filename}
+        </Button>
       </HoverCardTrigger>
       <HoverCardContent className="w-full">
         <div>{path}</div>

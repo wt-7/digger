@@ -20,12 +20,10 @@ export const columns: ColumnDef<MatchedFile>[] = [
 
     cell: ({ row }) => {
       return (
-        <div>
-          <PathHoverCard
-            path={row.original.path}
-            filename={row.original.filename}
-          />
-        </div>
+        <PathHoverCard
+          path={row.original.path}
+          filename={row.original.filename}
+        />
       );
     },
   },
