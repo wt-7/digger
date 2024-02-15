@@ -1,8 +1,8 @@
   <p align="center">
   <p align="center">
     <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="src/assets/digger-colour.svg">
-    <source media="(prefers-color-scheme: light)" srcset="src/assets/digger-black.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="src/assets/digger-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="src/assets/digger-light.svg">
     <img alt="digger logo" src="src/assets/digger-colour.svg">
   </p>
   </p>
@@ -22,10 +22,16 @@
 ## Stack
 
 Framework: [Tauri](https://tauri.app/)
+
 Backend: [Rust](https://www.rust-lang.org/)
 
 Frontend: React ([TypeScript](https://www.typescriptlang.org))
+
 Styling: Tailwind + shadcn/ui
+
+
+
+
 
 
 
