@@ -21,13 +21,21 @@
   </p>
 </p>
 
+## Supported file types
+
+- Plain text UTF-8 (e.g. .txt, .md, .rs, .tsx)
+- Microsoft Word (.docx)
+- PDF (.pdf)
+
+More coming soon...
+
 ## Installation
 
 **Build from source**
 
 1.  See [Tauri prequisites](https://tauri.app/v1/guides/getting-started/prerequisites)
 
-2.  Clone the repo `git clone https://github.com/wt-7/tauri-mssql-dashboard`
+2.  Clone the repo `git clone https://github.com/wt-7/digger`
 3.  Install dependencies `pnpm i`
 4.  Build `pnpm tauri build`
 5.  Release binaries will be in `src-tauri/target/release/bundle`
