@@ -8,7 +8,7 @@
   </p>
   <h1 align="center"><b>digger</b></h1>
   <p align="center">
-    Fast and lightweight GUI text search tool for multiple file formats.
+    Fast and lightweight GUI text search tool for multiple file types.
     <br />
     <br />
   </p>
