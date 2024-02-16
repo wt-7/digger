@@ -1,23 +1,31 @@
-const MAX_CONTEXT_WHITESPACE: usize = 3;
-const MAX_CONTEXT_LENGTH: usize = 15;
+const MAX_CONTEXT_LENGTH: usize = 20;
+const MAX_PREFIX_WHITE_SPACE: usize = 2;
+const MAX_POSTFIX_WHITESPACE: usize = 3;
 
 /// The context surrounding a match in a haystack. The infix is the match itself, with the surrounding
 /// postfix and prefix built from the haystack.
 #[derive(serde::Serialize, Debug)]
 pub struct Context {
+    line: usize,
     prefix: String,
     infix: String,
     postfix: String,
 }
 
 impl Context {
-    pub fn from_haystack(haystack: &str, match_start: usize, match_end: usize) -> Self {
+    pub fn from_haystack(
+        haystack: &str,
+        match_start: usize,
+        match_end: usize,
+        line: usize,
+    ) -> Self {
         let prefix = build_prefix(haystack, match_start);
         // The infix should always be in bounds
         let infix = haystack[match_start..match_end].to_owned();
         let postfix = build_postfix(haystack, match_end);
 
         Self {
+            line,
             prefix,
             infix,
             postfix,
@@ -34,14 +42,18 @@ pub fn build_prefix(haystack: &str, start: usize) -> String {
         .rev()
         .take(MAX_CONTEXT_LENGTH)
         .take_while(|c| {
+            if c == &'\n' {
+                return false;
+            }
+
             if c.is_whitespace() {
                 whitespace_count += 1;
             }
-            whitespace_count <= MAX_CONTEXT_WHITESPACE
+            whitespace_count <= MAX_PREFIX_WHITE_SPACE
         })
         .collect::<String>();
 
-    pre.chars().rev().collect()
+    pre.trim_end().chars().rev().collect()
 }
 /// Builds the postfix of a match context. Given the end index of the match in the haystack,
 /// it will iterate from end index and collect characters until it reaches the maximum length
@@ -52,10 +64,14 @@ pub fn build_postfix(haystack: &str, end: usize) -> String {
         .chars()
         .take(MAX_CONTEXT_LENGTH)
         .take_while(|c| {
+            if c == &'\n' {
+                return false;
+            }
+
             if c.is_whitespace() {
                 whitespace_count += 1;
             }
-            whitespace_count < MAX_CONTEXT_WHITESPACE
+            whitespace_count < MAX_POSTFIX_WHITESPACE
         })
         .collect()
 }
@@ -70,7 +86,7 @@ mod tests {
 
         let prefix1 = build_prefix(haystack, 20);
 
-        assert_eq!(prefix1, "quick brown fox ");
+        assert_eq!(prefix1, "brown fox ");
     }
 
     #[test]
@@ -86,7 +102,7 @@ mod tests {
     fn test_context() {
         let haystack = "The quick brown fox jumps over the lazy dog";
 
-        let context = Context::from_haystack(haystack, 20, 25);
+        let context = Context::from_haystack(haystack, 20, 25, 0);
 
         assert_eq!(context.prefix, "quick brown fox ");
         assert_eq!(context.infix, "jumps");

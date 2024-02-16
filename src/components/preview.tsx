@@ -70,9 +70,10 @@ export function Preview({ file }: PreviewProps) {
             EditorView.lineWrapping,
           ]}
           basicSetup={{
-            lineNumbers: false,
+            lineNumbers: true,
             foldGutter: false,
             highlightActiveLine: false,
+            highlightActiveLineGutter: false,
           }}
         />
       </div>

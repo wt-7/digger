@@ -6,6 +6,7 @@ import {
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { MatchContext } from "@/lib/hooks/use-files";
+import { Table, TableRow, TableBody, TableCell } from "../ui/table";
 
 interface ContextHoverCard {
   needle: string;
@@ -24,20 +25,27 @@ export function ContextHoverCard({ needle, matches }: ContextHoverCard) {
           {needle}
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="max-w-80 max-h-96 overflow-auto">
-        <div className="flex flex-col gap-2 font-mono text-sm">
-          {matches.map((match, index) => (
-            <div key={index} className="truncate">
-              <span className="font-normal text-muted-foreground">
-                {match.prefix}
-              </span>
-              <span className="font-semibold">{match.infix}</span>
-              <span className="font-normal text-muted-foreground">
-                {match.postfix}
-              </span>
-            </div>
-          ))}
-        </div>
+      <HoverCardContent className="w-full max-h-96 overflow-y-auto">
+        <Table>
+          <TableBody>
+            {matches.map((match, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium">{match.line}</TableCell>
+                <TableCell>
+                  <p>
+                    <span className="font-normal text-muted-foreground">
+                      {match.prefix}
+                    </span>
+                    <span className="font-semibold">{match.infix}</span>
+                    <span className="font-normal text-muted-foreground">
+                      {match.postfix}
+                    </span>
+                  </p>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </HoverCardContent>
     </HoverCard>
   );

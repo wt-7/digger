@@ -1,5 +1,6 @@
 use crate::args::Needle;
 use aho_corasick::AhoCorasick;
+use line_numbers::LinePositions;
 use std::collections::{BTreeMap, BTreeSet};
 mod context;
 use context::Context;
@@ -17,11 +18,14 @@ impl PatternMatcher {
     pub fn find_matches(&self, contents: &str) -> anyhow::Result<Matches> {
         let mut matches = Matches::new();
         let mut required_needles = BTreeSet::new();
+        let line_positions = LinePositions::from(contents);
 
         for mat in self.inner.find_overlapping_iter(contents) {
             let matched_needle = &self.needles[mat.pattern()];
+            // Lines are 0-indexed, but 1-indexed in the UI.
+            let line = line_positions.from_offset(mat.start()).as_usize() + 1;
 
-            let context = Context::from_haystack(contents, mat.start(), mat.end());
+            let context = Context::from_haystack(contents, mat.start(), mat.end(), line);
 
             if matched_needle.is_required() {
                 required_needles.insert(mat.pattern().as_usize());

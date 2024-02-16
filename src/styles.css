@@ -61,7 +61,16 @@
   }
 }
 
-.cm-editor .cm-content {
+
+
+
+.cm-editor .cm-content, .cm-editor .cm-gutters {
   font-family: "JetBrains Mono", monospace;
   font-size: 13px;
+}
+
+.cm-editor .cm-gutters {
+  background-color: hsl(var(--background));
+  margin-right: 20px;
+  color: hsl(var(--muted-foreground))
 }
