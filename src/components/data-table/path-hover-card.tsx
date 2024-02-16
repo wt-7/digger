@@ -14,7 +14,10 @@ export function PathHoverCard({ path, filename }: PathHoverCardProps) {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <Button variant={"outline"} size={"sm"}>
+        <Button
+          variant={"outline"}
+          className="h-6 rounded-md px-2.5 py-0.5 text-xs font-semibold truncate"
+        >
           {filename}
         </Button>
       </HoverCardTrigger>
