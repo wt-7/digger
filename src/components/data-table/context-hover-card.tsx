@@ -24,8 +24,8 @@ export function ContextHoverCard({ needle, matches }: ContextHoverCard) {
           {needle}
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="max-w-80">
-        <div>
+      <HoverCardContent className="max-w-80 max-h-96 overflow-auto">
+        <div className="flex flex-col gap-2 font-mono text-sm">
           {matches.map((match, index) => (
             <div key={index} className="truncate">
               <span className="font-normal text-muted-foreground">

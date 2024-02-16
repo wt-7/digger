@@ -1,5 +1,5 @@
 const MAX_CONTEXT_WHITESPACE: usize = 3;
-const MAX_CONTEXT_LENGTH: usize = 30;
+const MAX_CONTEXT_LENGTH: usize = 15;
 
 /// The context surrounding a match in a haystack. The infix is the match itself, with the surrounding
 /// postfix and prefix built from the haystack.

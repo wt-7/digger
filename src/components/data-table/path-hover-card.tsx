@@ -19,7 +19,7 @@ export function PathHoverCard({ path, filename }: PathHoverCardProps) {
         </Button>
       </HoverCardTrigger>
       <HoverCardContent className="w-full">
-        <div>{path}</div>
+        <p className="font-mono text-xs">{path}</p>
       </HoverCardContent>
     </HoverCard>
   );
