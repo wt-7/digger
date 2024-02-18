@@ -36,22 +36,16 @@ import { RowContextMenu } from "./row-context-menu";
 interface FileTableProps {
   columns: ColumnDef<MatchedFile>[];
   data: MatchedFile[];
-  defaultVisbilility: VisibilityState;
+  defaultVis: VisibilityState;
   facetedFilters?: FacetedFilter[];
 }
 
-export function FileTable({
-  columns,
-  data,
-  defaultVisbilility,
-}: FileTableProps) {
+export function FileTable({ columns, data, defaultVis }: FileTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+  const [colFilters, setColFilters] = React.useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>(defaultVisbilility);
+  const [colVis, setColVis] = React.useState<VisibilityState>(defaultVis);
+  const [, setPreviewFile] = useAtom(currentPreview);
 
   const table = useReactTable({
     data,
@@ -60,9 +54,9 @@ export function FileTable({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange: setColFilters,
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
+    onColumnVisibilityChange: setColVis,
     onGlobalFilterChange: setGlobalFilter,
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
@@ -71,13 +65,20 @@ export function FileTable({
 
     state: {
       sorting,
-      columnFilters,
-      columnVisibility,
+      columnFilters: colFilters,
+      columnVisibility: colVis,
       globalFilter,
     },
   });
 
-  const [, setPreviewFile] = useAtom(currentPreview);
+  const selectedRows = table
+    .getSelectedRowModel()
+    .rows.map(({ original }) => original);
+
+  React.useEffect(() => {
+    // Indexing out of bounds will be undefined, which is fine
+    setPreviewFile(selectedRows[0]);
+  }, [selectedRows]);
 
   const extensions = new Set(data.map((file) => file.extension));
 
@@ -135,14 +136,6 @@ export function FileTable({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    onClick={() => {
-                      row.toggleSelected();
-                      if (row.getIsSelected()) {
-                        setPreviewFile(undefined);
-                      } else {
-                        setPreviewFile(row.original);
-                      }
-                    }}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

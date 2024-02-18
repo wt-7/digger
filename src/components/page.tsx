@@ -4,7 +4,7 @@ import { DEFAULT_FORM_VALUES } from "@/lib/consts";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { SearchFormValues } from "./form";
 import { DiggerPlain } from "./digger-plain";
-import { defaultColumnVisibility, columns } from "./data-table/columns";
+import { defaultVis, columns } from "./data-table/columns";
 
 export interface PageProps {
   formValues: SearchFormValues;
@@ -52,7 +52,7 @@ export default function Page({ formValues, collapsed }: PageProps) {
         <FileTable
           data={data.files}
           columns={columns}
-          defaultVisbilility={defaultColumnVisibility}
+          defaultVis={defaultVis}
         />
       </div>
     </ScrollArea>

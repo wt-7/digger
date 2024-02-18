@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { MatchContext } from "@/lib/hooks/use-files";
 import { Table, TableRow, TableBody, TableCell } from "../ui/table";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 interface ContextHoverCard {
   needle: string;
@@ -15,8 +16,8 @@ interface ContextHoverCard {
 
 export function ContextHoverCard({ needle, matches }: ContextHoverCard) {
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
+    <Popover>
+      <PopoverTrigger asChild>
         <Button
           className={cn(
             "h-6 rounded-md px-2.5 py-0.5 text-xs font-semibold truncate"
@@ -24,8 +25,8 @@ export function ContextHoverCard({ needle, matches }: ContextHoverCard) {
         >
           {needle}
         </Button>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-full max-h-96 overflow-y-auto">
+      </PopoverTrigger>
+      <PopoverContent className="w-full max-h-96 overflow-y-auto">
         <Table>
           <TableBody>
             {matches.map((match, index) => (
@@ -46,7 +47,7 @@ export function ContextHoverCard({ needle, matches }: ContextHoverCard) {
             ))}
           </TableBody>
         </Table>
-      </HoverCardContent>
-    </HoverCard>
+      </PopoverContent>
+    </Popover>
   );
 }

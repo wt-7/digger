@@ -3,6 +3,7 @@ import { MatchedFile } from "@/lib/hooks/use-files";
 import { DataTableColumnHeader } from "./data-table-header";
 import { ContextHoverCard } from "./context-hover-card";
 import { PathHoverCard } from "./path-hover-card";
+import { Button } from "../ui/button";
 
 export const columns: ColumnDef<MatchedFile>[] = [
   {
@@ -108,9 +109,22 @@ export const columns: ColumnDef<MatchedFile>[] = [
       );
     },
   },
+
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      return (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => row.toggleSelected()}
+        />
+      );
+    },
+  },
 ];
 
-export const defaultColumnVisibility = {
+export const defaultVis = {
   path: false,
   extension: false,
   accessed: false,
