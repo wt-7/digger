@@ -111,14 +111,16 @@ export const columns: ColumnDef<MatchedFile>[] = [
   },
 
   {
-    id: "actions",
+    id: "preview",
     cell: ({ row }) => {
       return (
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
           onClick={() => row.toggleSelected()}
-        />
+        >
+          Preview
+        </Button>
       );
     },
   },
