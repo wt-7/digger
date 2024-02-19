@@ -1,8 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { DataTableColumnHeader } from "./data-table-header";
-import { ContextHoverCard } from "./context-hover-card";
-import { PathHoverCard } from "./path-hover-card";
+import { ContextPopover } from "./context-popover";
+import { PathPopover } from "./path-popover";
 import { Button } from "../ui/button";
 
 export const columns: ColumnDef<MatchedFile>[] = [
@@ -21,7 +21,7 @@ export const columns: ColumnDef<MatchedFile>[] = [
 
     cell: ({ row }) => {
       return (
-        <PathHoverCard
+        <PathPopover
           path={row.original.path}
           filename={row.original.filename}
         />
@@ -45,7 +45,7 @@ export const columns: ColumnDef<MatchedFile>[] = [
       return (
         <div className="flex flex-row space-x-2">
           {Object.entries(matches).map(([key, value]) => (
-            <ContextHoverCard key={key} needle={key} matches={value} />
+            <ContextPopover key={key} needle={key} matches={value} />
           ))}
         </div>
       );

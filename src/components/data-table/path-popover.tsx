@@ -1,12 +1,12 @@
 import { Button } from "../ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 
-interface PathHoverCardProps {
+interface PathPopoverProps {
   path: string;
   filename: string;
 }
 
-export function PathHoverCard({ path, filename }: PathHoverCardProps) {
+export function PathPopover({ path, filename }: PathPopoverProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>

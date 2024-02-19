@@ -1,20 +1,15 @@
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "../ui/hover-card";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { MatchContext } from "@/lib/hooks/use-files";
 import { Table, TableRow, TableBody, TableCell } from "../ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
-interface ContextHoverCard {
+interface ContextPopoverProps {
   needle: string;
   matches: Array<MatchContext>;
 }
 
-export function ContextHoverCard({ needle, matches }: ContextHoverCard) {
+export function ContextPopover({ needle, matches }: ContextPopoverProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
