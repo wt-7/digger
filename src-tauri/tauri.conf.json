@@ -14,14 +14,6 @@
     "allowlist": {
       "all": false,
       "dialog": {
-        "all": true,
-        "ask": true,
-        "confirm": true,
-        "message": true,
-        "open": true,
-        "save": true
-      },
-      "shell": {
         "all": false,
         "open": true
       }
@@ -48,8 +40,8 @@
         "title": "digger",
         "width": 1600,
         "height": 900,
-        "minHeight": 600,
-        "minWidth": 800
+        "minWidth": 800,
+        "minHeight": 600
       }
     ]
   }
