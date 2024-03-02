@@ -4,7 +4,8 @@ mod docx;
 mod pdf;
 
 /// Read the contents of a file, choosing the appropriate reader based on the file extension.
-pub fn read_file(path: &Path) -> anyhow::Result<String> {
+pub fn read_file<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
+    let path = path.as_ref();
     match path
         .extension()
         .and_then(|x| x.to_str())

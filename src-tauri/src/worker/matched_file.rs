@@ -12,9 +12,10 @@ pub struct MatchedFile {
 }
 
 impl MatchedFile {
-    pub fn new<P: AsRef<Path>>(path: P, matches: Matches) -> Self {
+    pub fn new<P: AsRef<Path>>(path: P, matches: Matches) -> anyhow::Result<Self> {
         let path = path.as_ref();
-        let metadata = Metadata::from_path(path);
+
+        let metadata = path.metadata()?.into();
 
         let extension = path
             .extension()
@@ -28,52 +29,40 @@ impl MatchedFile {
             .unwrap_or_default()
             .to_owned();
 
-        Self {
+        Ok(Self {
             path: path.to_path_buf(),
             filename,
             extension,
             matches,
             metadata,
-        }
+        })
     }
 
     pub fn modified(&self) -> &Option<time::OffsetDateTime> {
         // Exposed for sorting
-        &self.metadata.modified()
+        &self.metadata.modified
     }
 }
 
 #[derive(Debug, serde::Serialize)]
 pub struct Metadata {
     #[serde(with = "time::serde::iso8601::option")]
+    pub modified: Option<time::OffsetDateTime>,
+    #[serde(with = "time::serde::iso8601::option")]
     accessed: Option<time::OffsetDateTime>,
     #[serde(with = "time::serde::iso8601::option")]
-    modified: Option<time::OffsetDateTime>,
-    #[serde(with = "time::serde::iso8601::option")]
     created: Option<time::OffsetDateTime>,
-    size: Option<u64>,
+    size: u64,
 }
+impl From<std::fs::Metadata> for Metadata {
+    fn from(metadata: std::fs::Metadata) -> Self {
+        let modified = metadata.modified().ok().map(time::OffsetDateTime::from);
 
-impl Metadata {
-    pub fn from_path(path: &Path) -> Self {
-        let meta = path.metadata().ok();
+        let accessed = metadata.accessed().ok().map(time::OffsetDateTime::from);
 
-        let modified = meta
-            .as_ref()
-            .and_then(|z| z.modified().ok())
-            .map(time::OffsetDateTime::from);
+        let created = metadata.created().ok().map(time::OffsetDateTime::from);
 
-        let accessed = meta
-            .as_ref()
-            .and_then(|z| z.accessed().ok())
-            .map(time::OffsetDateTime::from);
-
-        let created = meta
-            .as_ref()
-            .and_then(|z| z.created().ok())
-            .map(time::OffsetDateTime::from);
-
-        let size = path.metadata().map(|x| x.len()).ok();
+        let size = metadata.len();
 
         Self {
             accessed,
@@ -81,10 +70,5 @@ impl Metadata {
             created,
             size,
         }
-    }
-
-    pub fn modified(&self) -> &Option<time::OffsetDateTime> {
-        // Exposed for sorting
-        &self.modified
     }
 }

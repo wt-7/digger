@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::path::{self, Path};
 
 use crate::matcher::PatternMatcher;
 
@@ -11,10 +11,12 @@ pub struct SearchWorker {
     max_file_size: Option<u64>,
 }
 impl SearchWorker {
-    pub fn should_search(&self, path: &Path) -> bool {
+    pub fn should_search<P: AsRef<Path>>(&self, path: P) -> bool {
         if self.extensions.is_empty() {
             return true;
         }
+        let path = path.as_ref();
+
         // Extensions will always be a small, deduped array.
         // Lookup should be faster with a Vec than a HashSet.
 
@@ -33,14 +35,14 @@ impl SearchWorker {
                 .unwrap_or(true)
     }
 
-    pub fn search_path(
+    pub fn search_path<P: AsRef<Path>>(
         &self,
-        path: &Path,
+        path: P,
         matcher: &PatternMatcher,
     ) -> anyhow::Result<MatchedFile> {
-        let contents = crate::readers::read_file(path)?;
+        let contents = crate::readers::read_file(path.as_ref())?;
         let matches = matcher.find_matches(&contents)?;
-        Ok(MatchedFile::new(path, matches))
+        MatchedFile::new(path.as_ref(), matches)
     }
 }
 
