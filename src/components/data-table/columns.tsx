@@ -40,6 +40,7 @@ export const columns: ColumnDef<MatchedFile>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Extension" />
     ),
+    filterFn: "arrIncludesSome",
   },
   {
     accessorKey: "matches",
