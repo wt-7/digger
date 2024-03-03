@@ -4,6 +4,7 @@ import { DataTableColumnHeader } from "./data-table-header";
 import { ContextPopover } from "./context-popover";
 import { PathPopover } from "./path-popover";
 import { Button } from "../ui/button";
+import { EXTENSIONS } from "@/lib/consts";
 
 export const columns: ColumnDef<MatchedFile>[] = [
   {
@@ -20,10 +21,15 @@ export const columns: ColumnDef<MatchedFile>[] = [
     ),
 
     cell: ({ row }) => {
+      const icon = EXTENSIONS.find(
+        (ext) => ext.value === row.original.extension
+      )?.icon;
+
       return (
         <PathPopover
           path={row.original.path}
           filename={row.original.filename}
+          icon={icon}
         />
       );
     },
