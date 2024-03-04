@@ -1,22 +1,21 @@
 <p align="center">
   <p align="center">
-       <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="src/assets/digger-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="src/assets/digger-light.svg">
-    <img alt="digger logo" src="src/assets/digger-dark.svg" width="300px">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="src/assets/digger-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="src/assets/digger-light.svg">
+      <img alt="digger logo" src="src/assets/digger-dark.svg" width="300px">
     <picture/>
-
   </p>
 	<h1 align="center"><b>digger</b></h1>
 	<p align="center">
-		Fast and lightweight GUI text search tool for multiple file types.
+		Cross platform text search tool for multiple file types.
     <br />
     <br />
     <br />
-       <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="src/assets/ui-dark.webp">
-    <source media="(prefers-color-scheme: light)" srcset="src/assets/ui-light.webp">
-    <img alt="digger logo" src="src/assets/digger-dark.svg">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="src/assets/ui-dark.webp">
+      <source media="(prefers-color-scheme: light)" srcset="src/assets/ui-light.webp">
+      <img alt="digger logo" src="src/assets/digger-dark.svg">
     <picture/>
   </p>
 </p>
@@ -27,7 +26,7 @@
 - Microsoft Word (.docx)
 - PDF (.pdf)
 
-More coming soon...
+**More coming soon...**
 
 ## Installation
 

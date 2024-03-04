@@ -17,9 +17,6 @@ impl SearchWorker {
         }
         let path = path.as_ref();
 
-        // Extensions will always be a small, deduped array.
-        // Lookup should be faster with a Vec than a HashSet.
-
         let file_extension = path
             .extension()
             .and_then(|x| x.to_str())
@@ -28,6 +25,8 @@ impl SearchWorker {
 
         let file_size = path.metadata().map(|m| m.len()).unwrap_or(0);
 
+        // Extensions will always be a small, deduped array.
+        // Lookup should be faster with a Vec than a HashSet.
         self.extensions.contains(&file_extension)
             && self
                 .max_file_size
