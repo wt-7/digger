@@ -35,7 +35,7 @@ export function PdfIcon({
   ...props
 }: React.SVGProps<SVGSVGElement>) {
   return (
-    <FaFilePdf className={cn("text-lg text-ree-500", className)} {...props} />
+    <FaFilePdf className={cn("text-lg text-red-500", className)} {...props} />
   );
 }
 
@@ -112,7 +112,5 @@ export function SqlIcon({
   className,
   ...props
 }: React.SVGProps<SVGSVGElement>) {
-  return (
-    <FaDatabase className={cn("text-lg text-blue-500", className)} {...props} />
-  );
+  return <FaDatabase className={cn("text-lg", className)} {...props} />;
 }
