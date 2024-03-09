@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "digger",
+    "productName": "Digger",
     "version": "0.0.1"
   },
   "tauri": {
@@ -37,7 +37,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "digger",
+        "title": "Digger",
         "width": 1600,
         "height": 900,
         "minWidth": 800,

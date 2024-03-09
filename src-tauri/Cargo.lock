@@ -3,6 +3,26 @@
 version = 3
 
 [[package]]
+name = "Digger"
+version = "0.0.1"
+dependencies = [
+ "aho-corasick",
+ "anyhow",
+ "jwalk",
+ "line-numbers",
+ "pdf-extract",
+ "quick-xml 0.30.0",
+ "rayon",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tempfile",
+ "time",
+ "zip",
+]
+
+[[package]]
 name = "addr2line"
 version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -654,26 +674,6 @@ dependencies = [
  "block-buffer",
  "crypto-common",
  "subtle",
-]
-
-[[package]]
-name = "digger"
-version = "0.0.1"
-dependencies = [
- "aho-corasick",
- "anyhow",
- "jwalk",
- "line-numbers",
- "pdf-extract",
- "quick-xml 0.30.0",
- "rayon",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tempfile",
- "time",
- "zip",
 ]
 
 [[package]]
