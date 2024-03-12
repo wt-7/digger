@@ -28,7 +28,7 @@ export function ContextPopover({ needle, matches }: ContextPopoverProps) {
               <TableRow key={index}>
                 <TableCell className="font-medium">{match.line}</TableCell>
                 <TableCell>
-                  <p>
+                  <p className="font-mono">
                     <span className="font-normal text-muted-foreground">
                       {match.prefix}
                     </span>
