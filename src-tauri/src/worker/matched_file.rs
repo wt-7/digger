@@ -44,6 +44,26 @@ impl MatchedFile {
     }
 }
 
+impl Ord for MatchedFile {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.modified().cmp(&other.modified())
+    }
+}
+
+impl PartialOrd for MatchedFile {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl PartialEq for MatchedFile {
+    fn eq(&self, other: &Self) -> bool {
+        self.path == other.path
+    }
+}
+
+impl Eq for MatchedFile {}
+
 #[derive(Debug, serde::Serialize)]
 pub struct Metadata {
     #[serde(with = "time::serde::iso8601::option")]

@@ -1,12 +1,15 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::{
+    collections::BTreeSet,
+    sync::atomic::{AtomicUsize, Ordering},
+};
 
 use crate::{args::Args, worker::matched_file::MatchedFile};
 use ignore::WalkState;
-use rayon::prelude::*;
 
 /// Somewhat contrived upper bound for the channel capacity.
 /// The goal is to have it large enough to not block the search, but not so large that it uses too much memory.
 const CHANNEL_CAPACITY: usize = 100;
+
 #[derive(Debug, serde::Serialize)]
 pub struct Search {
     files: Vec<MatchedFile>,
@@ -28,9 +31,9 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
     let (s, r) = crossbeam_channel::bounded::<MatchedFile>(CHANNEL_CAPACITY);
 
     let result_thread = std::thread::spawn(move || {
-        let mut matches = Vec::new();
+        let mut matches = BTreeSet::new();
         for matched_file in r {
-            matches.push(matched_file);
+            matches.insert(matched_file);
         }
         matches
     });
@@ -65,16 +68,14 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
 
     drop(s);
 
-    let mut matches = result_thread
+    let matches = result_thread
         .join()
         .map_err(|_| "Couldn't join the result thread")?;
-
-    matches.sort_by(|a, b| b.modified().cmp(&a.modified()));
 
     let duration = start_time.elapsed();
 
     Ok(Search {
-        files: matches,
+        files: matches.into_iter().collect(),
         duration: duration.as_millis(),
         files_checked: files_checked.into_inner(),
         files_searched: files_searched.into_inner(),
