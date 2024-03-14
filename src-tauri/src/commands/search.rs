@@ -4,6 +4,9 @@ use crate::{args::Args, worker::matched_file::MatchedFile};
 use ignore::WalkState;
 use rayon::prelude::*;
 
+/// Somewhat contrived upper bound for the channel capacity.
+/// The goal is to have it large enough to not block the search, but not so large that it uses too much memory.
+const CHANNEL_CAPACITY: usize = 100;
 #[derive(Debug, serde::Serialize)]
 pub struct Search {
     files: Vec<MatchedFile>,
@@ -22,7 +25,7 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
     let files_searched = AtomicUsize::new(0);
     let files_checked = AtomicUsize::new(0);
 
-    let (s, r) = crossbeam_channel::unbounded::<MatchedFile>();
+    let (s, r) = crossbeam_channel::bounded::<MatchedFile>(CHANNEL_CAPACITY);
 
     let result_thread = std::thread::spawn(move || {
         let mut matches = Vec::new();
