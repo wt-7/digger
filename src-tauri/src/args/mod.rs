@@ -34,16 +34,19 @@ impl Args {
             .build()
     }
 
-    pub fn walker(&self) -> jwalk::WalkDir {
+    pub fn walker(&self) -> ignore::WalkParallel {
         let depth = if self.depth == 0 {
-            std::usize::MAX
+            None
+            // todo: this could probably be done just through tauri ipc
         } else {
-            self.depth
+            Some(self.depth)
         };
 
-        jwalk::WalkDir::new(&self.path)
+        ignore::WalkBuilder::new(&self.path)
             .max_depth(depth)
-            .skip_hidden(self.ignore_hidden)
+            .threads(6)
+            .hidden(self.ignore_hidden)
+            .build_parallel()
     }
 
     pub fn matcher(&self) -> anyhow::Result<PatternMatcher> {
