@@ -17,7 +17,7 @@ export function Sidebar() {
       </ScrollArea>
       <div className="flex p-4 gap-4 w-full items-center justify-between">
         <ThemeToggle />
-        <Version version={"0.0.1"} />
+        <Version />
       </div>
     </div>
   );
