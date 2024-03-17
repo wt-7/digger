@@ -2,6 +2,7 @@ import { DiggerIcon } from "./digger-icon";
 import { SearchForm } from "./form";
 import { ThemeToggle } from "./theme-toggle";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import { Version } from "./version";
 
 export function Sidebar() {
   return (
@@ -14,8 +15,9 @@ export function Sidebar() {
           {/* Scrollbar hidden as native as native one gets duplicated, however, the functionality is needed */}
         </div>
       </ScrollArea>
-      <div className="flex p-4 gap-4 w-full">
+      <div className="flex p-4 gap-4 w-full items-center justify-between">
         <ThemeToggle />
+        <Version version={"0.0.1"} />
       </div>
     </div>
   );
