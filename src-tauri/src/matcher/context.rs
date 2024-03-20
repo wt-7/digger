@@ -32,12 +32,13 @@ impl Context {
         }
     }
 }
+
 /// Builds the prefix of a match context. Given the start index of the match in the haystack,
 /// it will iterate backwards from the start index and collect characters until
 /// it reaches the maximum length or the maximum number of whitespace characters.
-pub fn build_prefix(haystack: &str, start: usize) -> String {
+pub fn build_prefix(haystack: &str, infix_start: usize) -> String {
     let mut whitespace_count = 0;
-    let pre = haystack[..start]
+    let pre = haystack[..infix_start]
         .chars()
         .rev()
         .take(MAX_CONTEXT_LENGTH)
@@ -55,12 +56,13 @@ pub fn build_prefix(haystack: &str, start: usize) -> String {
 
     pre.trim_end().chars().rev().collect()
 }
+
 /// Builds the postfix of a match context. Given the end index of the match in the haystack,
 /// it will iterate from end index and collect characters until it reaches the maximum length
 /// or the maximum number of whitespace characters.
-pub fn build_postfix(haystack: &str, end: usize) -> String {
+pub fn build_postfix(haystack: &str, infix_end: usize) -> String {
     let mut whitespace_count = 0;
-    haystack[end..]
+    haystack[infix_end..]
         .chars()
         .take(MAX_CONTEXT_LENGTH)
         .take_while(|c| {
@@ -71,7 +73,7 @@ pub fn build_postfix(haystack: &str, end: usize) -> String {
             if c.is_whitespace() {
                 whitespace_count += 1;
             }
-            whitespace_count < MAX_POSTFIX_WHITESPACE
+            whitespace_count <= MAX_POSTFIX_WHITESPACE
         })
         .collect()
 }
