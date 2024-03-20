@@ -1,8 +1,8 @@
 import { version } from "@/atoms";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 
 export function Version() {
-  const [value] = useAtom(version);
+  const value = useAtomValue(version);
 
   if (value.state !== "hasData") {
     return <div className="text-muted-foreground text-sm">Loading...</div>;

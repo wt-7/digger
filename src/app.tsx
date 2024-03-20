@@ -2,7 +2,7 @@ import { Sidebar } from "./components/sidebar";
 import Page from "./components/page";
 // import { ContextMenu } from "./components/context";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
 import { currentPreview, currentSearch } from "./atoms";
 import { SearchFormValues, searchFormSchema } from "./components/form";
@@ -19,8 +19,8 @@ import { cn } from "./lib/utils";
 import { useState } from "react";
 
 function App() {
-  const [formValues] = useAtom(currentSearch);
-  const [previewFile] = useAtom(currentPreview);
+  const formValues = useAtomValue(currentSearch);
+  const previewFile = useAtomValue(currentPreview);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const form = useForm<SearchFormValues>({

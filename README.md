@@ -6,7 +6,7 @@
       <img alt="Digger logo" src="src/assets/digger-dark.svg" width="300px">
     <picture/>
   </p>
-	<h1 align="center"><b>digger</b></h1>
+	<h1 align="center"><b>Digger</b></h1>
 	<p align="center">
 		Cross platform text search tool for multiple file types.
     <br />

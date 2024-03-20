@@ -28,7 +28,7 @@ import {
   FacetedFilter,
 } from "./data-table-faceted-filter";
 import { DataTablePagination } from "./data-table-pagination";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { currentPreview } from "@/atoms";
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { RowContextMenu } from "./row-context-menu";
@@ -45,7 +45,7 @@ export function FileTable({ columns, data, defaultVis }: FileTableProps) {
   const [colFilters, setColFilters] = React.useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [colVis, setColVis] = React.useState<VisibilityState>(defaultVis);
-  const [, setPreviewFile] = useAtom(currentPreview);
+  const setPreviewFile = useSetAtom(currentPreview);
 
   const table = useReactTable({
     data,
