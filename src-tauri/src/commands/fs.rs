@@ -19,5 +19,5 @@ pub async fn open_with_default(path: &str) -> Result<(), String> {
 
 #[tauri::command]
 pub async fn preview_file(path: &str) -> Result<String, String> {
-    crate::readers::read_file(Path::new(path)).map_err(|e| e.to_string())
+    crate::extractors::extract_text(Path::new(path)).map_err(|e| e.to_string())
 }

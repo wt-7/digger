@@ -18,3 +18,11 @@ pub fn open_path<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
 
     status.success().then_some(()).context("Non-zero exit code")
 }
+
+fn set_platform(app: &tauri::App) {
+    let window = app.get_window("main").unwrap();
+    // Hacky way to set the platform globally on the window object.
+    // Getting the platform from the tauri API is async, which is not ideal.
+    let javascript = format!("window.platform = '{}'", std::env::consts::OS);
+    window.eval(&javascript).ok();
+}

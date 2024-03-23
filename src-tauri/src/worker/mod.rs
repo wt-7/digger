@@ -39,7 +39,7 @@ impl SearchWorker {
         path: P,
         matcher: &PatternMatcher,
     ) -> anyhow::Result<MatchedFile> {
-        let contents = crate::readers::read_file(path.as_ref())?;
+        let contents = crate::extractors::extract_text(path.as_ref())?;
         let matches = matcher.find_matches(&contents)?;
         MatchedFile::new(path.as_ref(), matches)
     }
