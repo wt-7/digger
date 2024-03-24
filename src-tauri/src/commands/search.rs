@@ -19,6 +19,7 @@ pub struct Search {
 }
 
 #[tauri::command]
+#[tracing::instrument]
 pub async fn file_search(args: Args) -> Result<Search, String> {
     let start_time = std::time::Instant::now();
     let searcher = args.worker();
