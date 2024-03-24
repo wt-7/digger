@@ -17,11 +17,12 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import { DEFAULT_FORM_VALUES } from "./lib/consts";
 import { cn } from "./lib/utils";
 import { useState } from "react";
+import { DragRegion } from "./components/drag-region";
 
 function App() {
   const formValues = useAtomValue(currentSearch);
   const previewFile = useAtomValue(currentPreview);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [mainSectionCollapsed, setMainSectionCollapsed] = useState(false);
 
   const form = useForm<SearchFormValues>({
     resolver: zodResolver(searchFormSchema),
@@ -36,6 +37,7 @@ function App() {
     <TooltipProvider>
       <FormProvider {...form}>
         {/* <ContextMenu> */}
+        <DragRegion />
         <div className="min-h-screen flex bg-background">
           <Sidebar />
           <ResizablePanelGroup direction="horizontal" className="min-h-screen">
@@ -44,18 +46,18 @@ function App() {
               minSize={30}
               collapsible
               onCollapse={() => {
-                setIsCollapsed(true);
+                setMainSectionCollapsed(true);
               }}
               collapsedSize={2}
               onExpand={() => {
-                setIsCollapsed(false);
+                setMainSectionCollapsed(false);
               }}
               className={cn(
-                isCollapsed &&
+                mainSectionCollapsed &&
                   "min-w-[50px] transition-all duration-300 ease-in-out"
               )}
             >
-              <Page formValues={formValues} collapsed={isCollapsed} />
+              <Page formValues={formValues} collapsed={mainSectionCollapsed} />
             </ResizablePanel>
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize={20}>

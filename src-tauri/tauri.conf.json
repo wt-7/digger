@@ -16,6 +16,11 @@
       "dialog": {
         "all": false,
         "open": true
+      },
+      "window": {
+        "startDragging": true,
+        "maximize": true,
+        "unmaximize": true
       }
     },
     "bundle": {
