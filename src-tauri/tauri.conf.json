@@ -32,17 +32,6 @@
     },
     "security": {
       "csp": null
-    },
-    "windows": [
-      {
-        "fullscreen": false,
-        "resizable": true,
-        "title": "Digger",
-        "width": 1600,
-        "height": 900,
-        "minWidth": 800,
-        "minHeight": 600
-      }
-    ]
+    }
   }
 }
