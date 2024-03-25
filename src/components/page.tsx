@@ -20,17 +20,15 @@ export default function Page({ formValues, collapsed }: PageProps) {
 
   if (formValues === DEFAULT_FORM_VALUES) {
     return (
-      <div className="flex justify-center h-full w-full items-center">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-          Search empty!
-        </h2>
+      <div className="flex justify-center h-full w-full items-center select-none">
+        <h3 className="text-3xl font-bold tracking-tight">Search empty!</h3>
       </div>
     );
   }
 
   if (isLoading) {
     return (
-      <div className="flex justify-center h-full w-full items-center">
+      <div className="flex justify-center h-full w-full items-center select-none">
         <DiggerPlain className="animate-pulse rounded-md text-primary/10 w-40" />
       </div>
     );

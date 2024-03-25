@@ -6,7 +6,6 @@ import { langs, loadLanguage } from "@uiw/codemirror-extensions-langs";
 import { useTheme } from "@/providers/theme-provider";
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { EXTENSIONS } from "@/lib/consts";
-
 interface PreviewProps {
   file: MatchedFile | undefined;
 }
@@ -18,7 +17,7 @@ export function Preview({ file }: PreviewProps) {
 
   if (!file) {
     return (
-      <div className="bg-background flex items-center h-full">
+      <div className="bg-background flex items-center h-full select-none">
         <p className="font-semibold leading-none truncate tracking-tight text-muted-foreground p-2 w-full text-center">
           No preview selected
         </p>
@@ -28,7 +27,7 @@ export function Preview({ file }: PreviewProps) {
 
   if (isLoading) {
     return (
-      <div className="bg-background flex items-center h-full">
+      <div className="bg-background flex items-center h-full select-none">
         <p className="font-semibold leading-none truncate tracking-tight text-muted-foreground p-2 w-full text-center">
           Loading...
         </p>
@@ -83,6 +82,6 @@ export function Preview({ file }: PreviewProps) {
 
 const githubDark = githubDarkInit({
   settings: {
-    background: "	#030712",
+    background: "#09090B",
   },
 });
