@@ -1,6 +1,7 @@
 import {
   CssIcon,
   HtmlIcon,
+  IpynbIcon,
   JavaIcon,
   JavaScriptIcon,
   JsonIcon,
@@ -55,6 +56,12 @@ export const EXTENSIONS: {
     value: "py",
     language: "python",
     icon: PythonIcon,
+  },
+  {
+    label: ".ipynb",
+    value: "ipynb",
+    language: "json",
+    icon: IpynbIcon,
   },
   {
     label: ".rs",
