@@ -12,10 +12,12 @@ pub struct SearchWorker {
 }
 impl SearchWorker {
     pub fn should_search<P: AsRef<Path>>(&self, path: P) -> bool {
-        if self.extensions.is_empty() {
-            return true;
-        }
         let path = path.as_ref();
+
+        // No directories or symlinks.
+        if !path.is_file() {
+            return false;
+        }
 
         let file_extension = path
             .extension()

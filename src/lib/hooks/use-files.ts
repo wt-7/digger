@@ -70,7 +70,7 @@ type TSearch<T> = {
   files: TMatchedFile<T>[];
   duration: number;
   files_searched: number;
-  files_checked: number;
+  entries_checked: number;
 };
 
 type TMatchedFile<T> = {

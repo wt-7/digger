@@ -14,7 +14,8 @@ const CHANNEL_CAPACITY: usize = 100;
 pub struct Search {
     files: Vec<MatchedFile>,
     files_searched: usize,
-    files_checked: usize,
+    entries_checked: usize,
+
     duration: u128,
 }
 
@@ -27,7 +28,7 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
     let walker = args.walker();
 
     let files_searched = AtomicUsize::new(0);
-    let files_checked = AtomicUsize::new(0);
+    let entries_checked = AtomicUsize::new(0);
 
     let (s, r) = crossbeam_channel::bounded::<MatchedFile>(CHANNEL_CAPACITY);
 
@@ -41,7 +42,8 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
 
     walker.run(|| {
         let files_searched = &files_searched;
-        let files_checked = &files_checked;
+        let entries_checked = &entries_checked;
+
         let searcher = &searcher;
         let matcher = &matcher;
         let s = s.clone();
@@ -49,10 +51,12 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
         Box::new(move |entry_result| {
             let entry = match entry_result {
                 Ok(entry) => entry,
-                Err(_) => return WalkState::Continue,
+                Err(err) => {
+                    tracing::error!(?err, "Error walking directory");
+                    return WalkState::Continue;
+                }
             };
-
-            files_checked.fetch_add(1, Ordering::Relaxed);
+            entries_checked.fetch_add(1, Ordering::Relaxed);
 
             let path = entry.path();
             if searcher.should_search(&path) {
@@ -78,7 +82,8 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
     Ok(Search {
         files: matches.into_iter().collect(),
         duration: duration.as_millis(),
-        files_checked: files_checked.into_inner(),
+        entries_checked: entries_checked.into_inner(),
+
         files_searched: files_searched.into_inner(),
     })
 }
