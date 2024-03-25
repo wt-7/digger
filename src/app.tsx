@@ -4,7 +4,7 @@ import Page from "./components/page";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
-import { currentPreview, currentSearch } from "./atoms";
+import { currentPreview, currentSearch, platformAtom } from "./atoms";
 import { SearchFormValues, searchFormSchema } from "./components/form";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Preview } from "./components/preview";
@@ -23,6 +23,7 @@ function App() {
   const formValues = useAtomValue(currentSearch);
   const previewFile = useAtomValue(currentPreview);
   const [mainSectionCollapsed, setMainSectionCollapsed] = useState(false);
+  const platform = useAtomValue(platformAtom);
 
   const form = useForm<SearchFormValues>({
     resolver: zodResolver(searchFormSchema),
@@ -37,9 +38,10 @@ function App() {
     <TooltipProvider>
       <FormProvider {...form}>
         {/* <ContextMenu> */}
-        <DragRegion />
+
+        {platform === "macos" && <DragRegion />}
         <div className="min-h-screen flex bg-background">
-          <Sidebar />
+          <Sidebar platform={platform} />
           <ResizablePanelGroup direction="horizontal" className="min-h-screen">
             <ResizablePanel
               defaultSize={80}

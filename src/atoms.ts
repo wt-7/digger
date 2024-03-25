@@ -11,3 +11,10 @@ export const currentPreview = atom<MatchedFile | undefined>(undefined);
 
 // Get the app version from tauri.conf.json
 export const version = loadable(atom(async () => await getVersion()));
+
+export type Platform = "macos" | "windows";
+
+export const platformAtom = atom(() => {
+  const temp: any = window;
+  return temp["platform"] as Platform;
+});
