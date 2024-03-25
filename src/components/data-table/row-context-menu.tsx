@@ -32,7 +32,13 @@ export function RowContextMenu({ children, row }: RowContextMenuProps) {
             await invoke("open_in_explorer", { path: row.original.path })
           }
         >
-          Show in explorer
+          Show in folder
+        </ContextMenuItem>
+        <ContextMenuItem
+          inset
+          onClick={() => navigator.clipboard.writeText(row.original.path)}
+        >
+          Copy path
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenuPrimitive>

@@ -114,3 +114,12 @@ export function SqlIcon({
 }: React.SVGProps<SVGSVGElement>) {
   return <FaDatabase className={cn("text-lg", className)} {...props} />;
 }
+
+export function IpynbIcon({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
+  return (
+    <FaPython className={cn("text-lg text-orange-500", className)} {...props} />
+  );
+}
