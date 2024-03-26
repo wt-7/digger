@@ -43,7 +43,7 @@ export function RowContextMenu({ children, row }: RowContextMenuProps) {
             toast("Path copied to clipboard", {
               description: row.original.path,
               closeButton: true,
-              position: "bottom-left",
+              position: "bottom-center",
             });
           }}
         >

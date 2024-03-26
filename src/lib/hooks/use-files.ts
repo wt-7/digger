@@ -42,7 +42,7 @@ export const useFiles = (search: SearchFormValues) => {
       toast("Search complete", {
         description: `Found ${data.files.length} files in ${data.duration}ms`,
         closeButton: true,
-        position: "bottom-left",
+        position: "bottom-center",
       });
 
       return deserializeSearch(data);

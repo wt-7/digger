@@ -41,12 +41,7 @@ export default function Page({ formValues, collapsed }: PageProps) {
   return (
     <ScrollArea className="w-full h-screen">
       <ScrollBar orientation="vertical" />
-      <div className="p-12 flex flex-col gap-6">
-        <p className="text-muted-foreground">
-          {data.files_searched} files searched in {data.duration}ms. Found{" "}
-          {data.files.length} matches.
-        </p>
-
+      <div className="p-12">
         <FileTable
           data={data.files}
           columns={columns}
