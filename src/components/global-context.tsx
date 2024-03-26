@@ -5,8 +5,8 @@ import {
   ContextMenuShortcut,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { DEFAULT_FORM_VALUES } from "@/lib/consts";
 import { useFormContext } from "react-hook-form";
+import { DEFAULT_FORM_VALUES } from "./search-form";
 
 export function ContextMenu({ children }: { children: React.ReactNode }) {
   const form = useFormContext();

@@ -4,13 +4,18 @@ import Page from "./components/page";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
-import { currentPreview, currentSearch } from "./atoms";
-import { SearchFormValues, searchFormSchema } from "./components/search-form";
+import {
+  DEFAULT_FORM_VALUES,
+  SearchFormValues,
+  currentSearch,
+  searchFormSchema,
+} from "./components/search-form";
 import { useHotkeys } from "react-hotkeys-hook";
 import {
   EMPTY_PANEL_SIZE,
   OCCUPIED_PANEL_SIZE,
   Preview,
+  currentPreview,
 } from "./components/preview";
 import {
   ResizableHandle,
@@ -18,7 +23,6 @@ import {
   ResizablePanelGroup,
 } from "./components/ui/resizable";
 import { TooltipProvider } from "./components/ui/tooltip";
-import { DEFAULT_FORM_VALUES } from "./lib/consts";
 import { cn } from "./lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { DragRegion } from "./components/drag-region";
@@ -87,7 +91,7 @@ function App() {
               defaultSize={EMPTY_PANEL_SIZE}
               ref={previewPanelRef}
             >
-              <Preview file={previewFile} />
+              <Preview />
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>

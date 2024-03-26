@@ -30,10 +30,10 @@ import {
 } from "./data-table-faceted-filter";
 import { DataTablePagination } from "./data-table-pagination";
 import { atom, useAtom, useSetAtom } from "jotai";
-import { currentPreview } from "@/atoms";
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { RowContextMenu } from "./row-context-menu";
 import { defaultVis } from "./columns";
+import { currentPreview } from "../preview";
 
 const sortingAtom = atom<SortingState>([]);
 const columnFiltersAtom = atom<ColumnFiltersState>([]);

@@ -8,7 +8,6 @@ import { NeedleFields } from "./form/needle-fields";
 import { PathField } from "./form/path-field";
 import { ExtensionField } from "./form/extension-field";
 import { rowSelectionAtom } from "./data-table/file-table";
-import { toast } from "sonner";
 import { CaseSensitiveField } from "./form/case-sensitive-field";
 import { currentPreview } from "./preview";
 
