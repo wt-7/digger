@@ -1,6 +1,5 @@
 import { UseFormReturn, useFormContext } from "react-hook-form";
 import * as z from "zod";
-import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 import { currentPreview, currentSearch } from "@/atoms";
 import { useAtom, useSetAtom } from "jotai";
@@ -9,8 +8,6 @@ import { isEqual } from "radash";
 import { NeedleFields } from "./form/needle-fields";
 import { PathField } from "./form/path-field";
 import { ExtensionField } from "./form/extension-field";
-import { useIsFetching } from "@tanstack/react-query";
-import { cn } from "@/lib/utils";
 import { rowSelectionAtom } from "./data-table/file-table";
 
 export const searchFormSchema = z.object({
@@ -30,8 +27,6 @@ export type SearchFormValues = z.infer<typeof searchFormSchema>;
 export function SearchForm() {
   const [lastSearch, setValues] = useAtom(currentSearch);
   const queryClient = useQueryClient();
-  const numQueriesFetching = useIsFetching({ queryKey: ["useFiles"] });
-  const isFetching = numQueriesFetching > 0;
   const setRowSelection = useSetAtom(rowSelectionAtom);
   const setPreviewFile = useSetAtom(currentPreview);
 
@@ -60,19 +55,13 @@ export function SearchForm() {
       <form
         onSubmit={form.handleSubmit((data) => handleSubmit(data))}
         className="space-y-6 w-48"
+        id="main"
+        // HTML attribute to allow the form to be submitted elsewhere.
+        // TODO: refactor sidebar
       >
         <PathField form={form} />
         <ExtensionField form={form} />
         <NeedleFields form={form} />
-        <Button
-          type="submit"
-          className={cn(
-            "w-full bg-amber-600 hover:bg-amber-600/90",
-            isFetching && "animate-pulse"
-          )}
-        >
-          Dig!
-        </Button>
       </form>
     </Form>
   );
