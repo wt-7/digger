@@ -78,7 +78,18 @@ export function NeedleFields({ form }: FieldProps) {
             variant="destructive"
             size="sm"
             className="mt-2 w-10"
-            onClick={() => remove(fields.length - 1)}
+            onClick={() => {
+              // Remove the first empty field, or the last field if none are empty.
+              let firstEmpty = fields.findIndex(
+                (field) => field.pattern === ""
+              );
+
+              if (firstEmpty !== -1) {
+                remove(firstEmpty);
+              } else {
+                remove(fields.length - 1);
+              }
+            }}
           >
             <MinusIcon />
           </Button>
