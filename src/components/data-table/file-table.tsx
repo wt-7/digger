@@ -1,6 +1,7 @@
 import {
   ColumnDef,
   ColumnFiltersState,
+  RowSelectionState,
   SortingState,
   VisibilityState,
   flexRender,
@@ -28,10 +29,17 @@ import {
   FacetedFilter,
 } from "./data-table-faceted-filter";
 import { DataTablePagination } from "./data-table-pagination";
-import { useSetAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import { currentPreview } from "@/atoms";
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { RowContextMenu } from "./row-context-menu";
+import { defaultVis } from "./columns";
+
+const sortingAtom = atom<SortingState>([]);
+const columnFiltersAtom = atom<ColumnFiltersState>([]);
+const globalFilterAtom = atom<string>("");
+const columnVisibilityAtom = atom<VisibilityState>(defaultVis);
+const rowSelectionAtom = atom<RowSelectionState>({});
 
 interface FileTableProps {
   columns: ColumnDef<MatchedFile>[];
@@ -40,11 +48,13 @@ interface FileTableProps {
   facetedFilters?: FacetedFilter[];
 }
 
-export function FileTable({ columns, data, defaultVis }: FileTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [colFilters, setColFilters] = React.useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = React.useState("");
-  const [colVis, setColVis] = React.useState<VisibilityState>(defaultVis);
+export function FileTable({ columns, data }: FileTableProps) {
+  const [sorting, setSorting] = useAtom(sortingAtom);
+  const [colFilters, setColFilters] = useAtom(columnFiltersAtom);
+  const [globalFilter, setGlobalFilter] = useAtom(globalFilterAtom);
+  const [colVis, setColVis] = useAtom(columnVisibilityAtom);
+  const [rowSelection, setRowSelection] = useAtom(rowSelectionAtom);
+
   const setPreviewFile = useSetAtom(currentPreview);
 
   const table = useReactTable({
@@ -61,13 +71,15 @@ export function FileTable({ columns, data, defaultVis }: FileTableProps) {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     enableMultiRowSelection: false,
-    // Mutli row selection must be off for the preview to work
+    onRowSelectionChange: setRowSelection,
+    // Multi row selection must be off for the preview to work
 
     state: {
       sorting,
       columnFilters: colFilters,
       columnVisibility: colVis,
       globalFilter,
+      rowSelection,
     },
   });
 
@@ -77,13 +89,14 @@ export function FileTable({ columns, data, defaultVis }: FileTableProps) {
 
   React.useEffect(() => {
     // Indexing out of bounds will be undefined, which is fine
+
     setPreviewFile(selectedRows[0]);
   }, [selectedRows]);
 
   const extensions = new Set(data.map((file) => file.extension));
 
   return (
-    <div className="@container/datatable">
+    <div className="@container/datatable select-none">
       <div className="flex justify-end pb-4 space-x-2">
         <DebouncedInput
           placeholder="Search..."
