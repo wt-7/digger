@@ -39,7 +39,9 @@ const sortingAtom = atom<SortingState>([]);
 const columnFiltersAtom = atom<ColumnFiltersState>([]);
 const globalFilterAtom = atom<string>("");
 const columnVisibilityAtom = atom<VisibilityState>(defaultVis);
-const rowSelectionAtom = atom<RowSelectionState>({});
+// Exported - this needs to be reset when a new search is submitted.
+// Still using an atom, as the the table gets unmounted when the panel is closed
+export const rowSelectionAtom = atom<RowSelectionState>({});
 
 interface FileTableProps {
   columns: ColumnDef<MatchedFile>[];

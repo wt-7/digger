@@ -2,8 +2,8 @@ import { UseFormReturn, useFormContext } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "./ui/button";
 import { Form } from "./ui/form";
-import { currentSearch } from "@/atoms";
-import { useAtom } from "jotai";
+import { currentPreview, currentSearch } from "@/atoms";
+import { useAtom, useSetAtom } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
 import { isEqual } from "radash";
 import { NeedleFields } from "./form/needle-fields";
@@ -11,6 +11,7 @@ import { PathField } from "./form/path-field";
 import { ExtensionField } from "./form/extension-field";
 import { useIsFetching } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
+import { rowSelectionAtom } from "./data-table/file-table";
 
 export const searchFormSchema = z.object({
   path: z.string().min(1, { message: "Required" }),
@@ -31,8 +32,14 @@ export function SearchForm() {
   const queryClient = useQueryClient();
   const numQueriesFetching = useIsFetching({ queryKey: ["useFiles"] });
   const isFetching = numQueriesFetching > 0;
+  const setRowSelection = useSetAtom(rowSelectionAtom);
+  const setPreviewFile = useSetAtom(currentPreview);
 
   const handleSubmit = async (data: SearchFormValues) => {
+    // Clear the row selection and preview file when a new search is submitted
+    // This will prevent the preview file from being displayed when the search results are updated
+    setRowSelection({});
+    setPreviewFile(undefined);
     if (isEqual(data, lastSearch)) {
       // If the search has been resubmitted without changes, remove the query to force a refetch.
       // This will trigger the loading UI
