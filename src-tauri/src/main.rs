@@ -26,8 +26,6 @@ fn main() {
             #[cfg(debug_assertions)]
             window.open_devtools();
 
-            utils::set_platform(&window);
-
             Ok(())
         })
         .run(tauri::generate_context!())

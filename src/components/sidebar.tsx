@@ -3,20 +3,18 @@ import { SearchForm } from "./form";
 import { ThemeToggle } from "./theme-toggle";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { Version } from "./version";
-import { Platform, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useOperatingSystem } from "@/lib/hooks/use-os";
 
-export interface SidebarProps {
-  platform: Platform;
-}
-
-export function Sidebar({ platform }: SidebarProps) {
+export function Sidebar() {
+  const os = useOperatingSystem();
   return (
-    <div className="border-r flex flex-col items-center select-none bg-muted/20">
+    <div className="border-r flex flex-col items-center select-none bg-muted/30">
       <DiggerIcon
         className={cn(
           "text-primary w-24",
           // Account for the custom titlebar and drag region on macOS
-          platform === "macos" ? "mt-9" : "mt-2"
+          os === "macos" ? "mt-9" : "mt-2"
         )}
       />
       <ScrollArea className="h-[calc(100vh-13.0rem)] mt-2">
