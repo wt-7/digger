@@ -1,5 +1,5 @@
 import { DiggerIcon } from "./digger-icon";
-import { SearchForm } from "./form";
+import { SearchForm } from "./search-form";
 import { ThemeToggle } from "./theme-toggle";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { Version } from "./version";

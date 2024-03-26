@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
 import { currentPreview, currentSearch } from "./atoms";
-import { SearchFormValues, searchFormSchema } from "./components/form";
+import { SearchFormValues, searchFormSchema } from "./components/search-form";
 import { useHotkeys } from "react-hotkeys-hook";
 import {
   EMPTY_PANEL_SIZE,

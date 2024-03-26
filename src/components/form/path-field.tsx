@@ -1,5 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
-import { SearchFormValues } from "../form";
+import { SearchFormValues } from "../search-form";
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { Button } from "../ui/button";
 import { open } from "@tauri-apps/api/dialog";

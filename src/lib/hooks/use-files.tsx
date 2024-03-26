@@ -1,4 +1,4 @@
-import { SearchFormValues } from "@/components/form";
+import { SearchFormValues } from "@/components/search-form";
 import { useQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import { toast } from "sonner";
@@ -40,7 +40,7 @@ export const useFiles = (search: SearchFormValues) => {
       });
 
       toast("Search complete", {
-        description: `Found ${data.files.length} files in ${data.duration}ms`,
+        description: `Matching files: ${data.files.length} \nDuration: ${data.duration}ms\nFiles searched: ${data.files_searched}\nEntries checked: ${data.entries_checked}`,
         closeButton: true,
         position: "bottom-center",
       });
