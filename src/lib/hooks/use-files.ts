@@ -1,6 +1,7 @@
 import { SearchFormValues } from "@/components/form";
 import { useQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
+import { toast } from "sonner";
 
 export type MatchContext = {
   line: number;
@@ -36,6 +37,12 @@ export const useFiles = (search: SearchFormValues) => {
 
       const data = await invoke<RawSearch>("file_search", {
         args: args,
+      });
+
+      toast("Search complete", {
+        description: `Found ${data.files.length} files in ${data.duration}ms`,
+        closeButton: true,
+        position: "bottom-left",
       });
 
       return deserializeSearch(data);

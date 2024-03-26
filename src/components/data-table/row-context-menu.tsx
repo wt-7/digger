@@ -7,6 +7,7 @@ import {
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { Row } from "@tanstack/react-table";
 import { invoke } from "@tauri-apps/api/tauri";
+import { toast } from "sonner";
 
 interface RowContextMenuProps {
   children: React.ReactNode;
@@ -36,7 +37,15 @@ export function RowContextMenu({ children, row }: RowContextMenuProps) {
         </ContextMenuItem>
         <ContextMenuItem
           inset
-          onClick={() => navigator.clipboard.writeText(row.original.path)}
+          onClick={() => {
+            navigator.clipboard.writeText(row.original.path);
+            // write a custom message based on the path
+            toast("Path copied to clipboard", {
+              description: row.original.path,
+              closeButton: true,
+              position: "bottom-left",
+            });
+          }}
         >
           Copy path
         </ContextMenuItem>

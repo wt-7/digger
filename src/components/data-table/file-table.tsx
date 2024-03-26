@@ -89,7 +89,6 @@ export function FileTable({ columns, data }: FileTableProps) {
 
   React.useEffect(() => {
     // Indexing out of bounds will be undefined, which is fine
-
     setPreviewFile(selectedRows[0]);
   }, [selectedRows]);
 
