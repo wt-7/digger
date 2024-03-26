@@ -13,14 +13,7 @@ import {
   TypeScriptIcon,
   WordIcon,
 } from "@/components/file-icons";
-import { SearchFormValues } from "@/components/search-form";
 import { LanguageName } from "@uiw/codemirror-extensions-langs";
-
-export const DEFAULT_FORM_VALUES: SearchFormValues = {
-  path: "",
-  needles: [{ pattern: "", required: true }],
-  extensions: [],
-};
 
 export const EXTENSIONS: {
   label: string;
