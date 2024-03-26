@@ -16,7 +16,7 @@ pub struct Args {
     needles: Vec<Needle>,
     depth: usize,
     ignore_hidden: bool,
-    ignore_case: bool,
+    case_sensitive: bool,
     max_file_size: Option<u64>,
 }
 
@@ -52,7 +52,7 @@ impl Args {
     pub fn matcher(&self) -> anyhow::Result<PatternMatcher> {
         PatternMatcherBuilder::new()
             .add_needles(&self.needles)
-            .ignore_case(self.ignore_case)
+            .ignore_case(!self.case_sensitive)
             .build()
     }
 }
