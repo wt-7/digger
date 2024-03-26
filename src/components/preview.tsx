@@ -6,6 +6,10 @@ import { langs, loadLanguage } from "@uiw/codemirror-extensions-langs";
 import { useTheme } from "@/providers/theme-provider";
 import { MatchedFile } from "@/lib/hooks/use-files";
 import { EXTENSIONS } from "@/lib/consts";
+
+export const EMPTY_PANEL_SIZE = 20;
+export const OCCUPIED_PANEL_SIZE = 40;
+
 interface PreviewProps {
   file: MatchedFile | undefined;
 }
