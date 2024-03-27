@@ -14,7 +14,7 @@ pub struct Args {
     path: String,
     extensions: Vec<String>,
     needles: Vec<Needle>,
-    depth: usize,
+    max_depth: Option<usize>,
     ignore_hidden: bool,
     case_sensitive: bool,
     max_file_size: Option<u64>,
@@ -35,15 +35,8 @@ impl Args {
     }
 
     pub fn walker(&self) -> ignore::WalkParallel {
-        let depth = if self.depth == 0 {
-            None
-            // todo: this could probably be done just through tauri ipc
-        } else {
-            Some(self.depth)
-        };
-
         ignore::WalkBuilder::new(&self.path)
-            .max_depth(depth)
+            .max_depth(self.max_depth)
             .threads(6)
             .hidden(self.ignore_hidden)
             .build_parallel()

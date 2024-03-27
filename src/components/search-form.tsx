@@ -43,7 +43,7 @@ export function SearchForm() {
 
   const handleSubmit = async (data: SearchFormValues) => {
     // Clear the row selection and preview file when a new search is submitted
-    // This will prevent the preview file from being displayed when the search results are updated
+    // This will prevent the wrong preview file from being displayed when the search results are updated
     setRowSelection({});
     setPreviewFile(undefined);
     if (isEqual(data, lastSearch)) {

@@ -12,7 +12,7 @@ export function CaseSensitiveField({ form }: FieldProps) {
         <FormItem>
           <FormControl>
             <Toggle
-              className=""
+              className="w-full"
               pressed={field.value}
               onPressedChange={field.onChange}
             >

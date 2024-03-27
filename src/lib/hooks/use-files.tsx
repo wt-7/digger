@@ -15,7 +15,7 @@ export type Search = TSearch<Date>;
 type RawSearch = TSearch<string>;
 
 type Args = SearchFormValues & {
-  depth: number;
+  max_depth: number | null;
   ignore_hidden: boolean;
   max_file_size: number | null;
 };
@@ -28,7 +28,7 @@ export const useFiles = (search: SearchFormValues) => {
         path: search.path,
         extensions: search.extensions,
         needles: search.needles,
-        depth: 0,
+        max_depth: null,
         ignore_hidden: true,
         case_sensitive: search.case_sensitive,
         max_file_size: null,

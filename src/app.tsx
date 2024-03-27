@@ -37,6 +37,7 @@ function App() {
 
   const form = useForm<SearchFormValues>({
     resolver: zodResolver(searchFormSchema),
+    defaultValues: DEFAULT_FORM_VALUES,
     values: formValues,
     mode: "onSubmit",
   });

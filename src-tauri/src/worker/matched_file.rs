@@ -77,11 +77,8 @@ pub struct Metadata {
 impl From<std::fs::Metadata> for Metadata {
     fn from(metadata: std::fs::Metadata) -> Self {
         let modified = metadata.modified().ok().map(time::OffsetDateTime::from);
-
         let accessed = metadata.accessed().ok().map(time::OffsetDateTime::from);
-
         let created = metadata.created().ok().map(time::OffsetDateTime::from);
-
         let size = metadata.len();
 
         Self {
