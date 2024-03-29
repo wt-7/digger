@@ -4,7 +4,7 @@ import { DataTableColumnHeader } from "./data-table-header";
 import { ContextPopover } from "./context-popover";
 import { PathPopover } from "./path-popover";
 import { Button } from "../ui/button";
-import { EXTENSIONS } from "@/lib/consts";
+import { EXTENSIONS } from "@/lib/extensions";
 
 export const columns: ColumnDef<MatchedFile>[] = [
   {

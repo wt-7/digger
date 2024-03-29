@@ -5,7 +5,7 @@ import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
-import { EXTENSIONS } from "@/lib/consts";
+import { EXTENSIONS } from "@/lib/extensions";
 import {
   Command,
   CommandEmpty,
