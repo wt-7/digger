@@ -81,3 +81,6 @@
   color: hsl(var(--muted-foreground))
 }
 
+.cm-gutters{
+  border-right-width: 0px !important;
+}
