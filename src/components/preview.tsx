@@ -9,6 +9,8 @@ import { EXTENSIONS } from "@/lib/extensions";
 import { atom, useAtomValue } from "jotai";
 import { highlightLines } from "@/lib/highlighter";
 import React from "react";
+import { toast } from "sonner";
+import { ErrorAlert } from "./error-alert";
 
 export const EMPTY_PANEL_SIZE = 20;
 export const OCCUPIED_PANEL_SIZE = 40;
@@ -26,7 +28,7 @@ export function Preview() {
 
   if (!previewFile) {
     return (
-      <div className="bg-background flex items-center h-full select-none">
+      <div className="flex items-center h-full select-none">
         <p className="font-semibold leading-none truncate tracking-tight text-muted-foreground p-2 w-full text-center">
           No preview selected
         </p>
@@ -36,7 +38,7 @@ export function Preview() {
 
   if (isLoading) {
     return (
-      <div className="bg-background flex items-center h-full select-none">
+      <div className="flex items-center h-full select-none">
         <p className="font-semibold leading-none truncate tracking-tight text-muted-foreground p-2 w-full text-center">
           Loading...
         </p>
@@ -46,10 +48,8 @@ export function Preview() {
 
   if (isError) {
     return (
-      <div className="flex flex-col bg-background items-center">
-        <h3 className="font-semibold leading-none tracking-tight">
-          {String(error)}
-        </h3>
+      <div className="p-12">
+        <ErrorAlert error={error as Error} />
       </div>
     );
   }
@@ -64,7 +64,13 @@ export function Preview() {
         <h2 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight first:mt-0 truncate">
           {previewFile.filename}
         </h2>
-        <p className="py-2 text-xs text-muted-foreground truncate font-semibold">
+        <p
+          className="py-2 text-xs text-muted-foreground truncate font-semibold"
+          onDoubleClick={() => {
+            navigator.clipboard.writeText(previewFile.path);
+            toast.error("Copied path to clipboard");
+          }}
+        >
           {previewFile.path}
         </p>
       </div>
@@ -87,6 +93,7 @@ export function Preview() {
               foldGutter: false,
               highlightActiveLine: false,
               highlightActiveLineGutter: false,
+              searchKeymap: false,
             }}
           />
         </div>

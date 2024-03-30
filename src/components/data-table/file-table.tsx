@@ -150,6 +150,14 @@ export function FileTable({ columns, data }: FileTableProps) {
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    onDoubleClick={() => {
+                      row.toggleSelected();
+                      if (row.getIsSelected()) {
+                        setPreviewFile(undefined);
+                      } else {
+                        setPreviewFile(row.original);
+                      }
+                    }}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

@@ -4,6 +4,7 @@ import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { DEFAULT_FORM_VALUES, SearchFormValues } from "./search-form";
 import { DiggerPlain } from "./digger-plain";
 import { defaultVis, columns } from "./data-table/columns";
+import { ErrorAlert } from "./error-alert";
 
 export interface PageProps {
   formValues: SearchFormValues;
@@ -34,7 +35,11 @@ export default function Page({ formValues, collapsed }: PageProps) {
   }
 
   if (isError) {
-    return <div>Error: {String(error)} </div>;
+    return (
+      <div className="p-12">
+        <ErrorAlert error={error as Error} />
+      </div>
+    );
   }
 
   return (
