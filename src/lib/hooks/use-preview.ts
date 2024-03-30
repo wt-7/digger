@@ -22,7 +22,7 @@ export const usePreview = (file: MatchedFile | undefined) => {
 
     enabled: !!file,
 
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
 };
