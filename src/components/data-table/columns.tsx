@@ -138,4 +138,5 @@ export const defaultVis = {
   extension: false,
   accessed: false,
   created: false,
+  preview: false,
 };

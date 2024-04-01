@@ -19,6 +19,9 @@ export function RowContextMenu({ children, row }: RowContextMenuProps) {
     <ContextMenuPrimitive>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
       <ContextMenuContent className="w-64">
+        <ContextMenuItem inset onClick={() => row.toggleSelected()}>
+          {row.getIsSelected() ? "Hide preview" : "Preview"}
+        </ContextMenuItem>
         <ContextMenuItem
           inset
           onSelect={async () =>
