@@ -1,4 +1,5 @@
 import { SearchFormValues } from "@/components/search-form";
+import { StatsToast } from "@/components/stats-toast";
 import { useQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import { toast } from "sonner";
@@ -38,13 +39,14 @@ export const useFiles = (search: SearchFormValues) => {
         args: args,
       });
 
-      toast("Search complete", {
-        description: `Matching files: ${data.files.length} \nDuration: ${data.duration}ms\nFiles searched: ${data.files_searched}\nEntries checked: ${data.entries_checked}`,
+      const res = deserializeSearch(data);
+
+      toast(StatsToast({ search: res }), {
         closeButton: true,
         position: "bottom-center",
       });
 
-      return deserializeSearch(data);
+      return res;
     },
 
     enabled: !!search.path,
