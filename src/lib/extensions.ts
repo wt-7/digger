@@ -181,4 +181,9 @@ export const EXTENSIONS: {
     value: "bat",
     language: "textile",
   },
+  {
+    label: "None",
+    value: "",
+    language: "textile",
+  },
 ];
