@@ -15,7 +15,7 @@ export default function Page({ formValues, collapsed }: PageProps) {
   const { data, isLoading, isError, error } = useFiles(formValues);
 
   if (collapsed) {
-    return <div className="w-full h-full bg-background" />;
+    return <div />;
   }
 
   if (formValues === DEFAULT_FORM_VALUES) {

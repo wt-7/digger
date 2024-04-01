@@ -9,7 +9,6 @@ import { EXTENSIONS } from "@/lib/extensions";
 import { atom, useAtomValue } from "jotai";
 import { highlightLines } from "@/lib/highlighter";
 import React from "react";
-import { toast } from "sonner";
 import { ErrorAlert } from "./error-alert";
 
 export const EMPTY_PANEL_SIZE = 20;
@@ -23,7 +22,7 @@ export function Preview() {
   const { theme } = useTheme();
 
   const matchLines = React.useMemo(() => {
-    return previewFile ? getAllLineNumbers(previewFile) : [];
+    return previewFile ? getMatchLineNumbers(previewFile) : [];
   }, [previewFile]);
 
   if (!previewFile) {
@@ -68,7 +67,6 @@ export function Preview() {
           className="py-2 text-xs text-muted-foreground truncate font-semibold"
           onDoubleClick={() => {
             navigator.clipboard.writeText(previewFile.path);
-            toast.error("Copied path to clipboard");
           }}
         >
           {previewFile.path}
@@ -115,17 +113,17 @@ const lightTheme = githubLightInit({
   },
 });
 
-function getAllLineNumbers(file: MatchedFile) {
-  const lines = new Set<number>();
+function getMatchLineNumbers(file: MatchedFile) {
+  const lines: number[] = [];
 
   const matches = file.matches;
 
   Object.keys(matches).forEach((key) => {
     const contexts = matches[key];
     contexts.forEach((context) => {
-      lines.add(context.line);
+      lines.push(context.line);
     });
   });
 
-  return Array.from(lines);
+  return lines;
 }
