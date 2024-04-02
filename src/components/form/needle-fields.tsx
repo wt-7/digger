@@ -53,7 +53,9 @@ export function NeedleFields({ form }: FieldProps) {
                         />
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent>Required?</TooltipContent>
+                    <TooltipContent>
+                      Mark as {field.value ? "optional" : "required"}
+                    </TooltipContent>
                   </Tooltip>
                 </FormControl>
                 <FormMessage />
