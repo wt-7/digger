@@ -5,6 +5,9 @@ import { DEFAULT_FORM_VALUES, SearchFormValues } from "./search-form";
 import { DiggerPlain } from "./digger-plain";
 import { defaultVis, columns } from "./data-table/columns";
 import { ErrorAlert } from "./error-alert";
+import { toast } from "sonner";
+import { StatsToast } from "./stats-toast";
+import { useEffect } from "react";
 
 export interface PageProps {
   formValues: SearchFormValues;
@@ -12,10 +15,16 @@ export interface PageProps {
 }
 
 export default function Page({ formValues, collapsed }: PageProps) {
-  const { data, isLoading, isError, error } = useFiles(formValues);
+  const { data, isLoading, isError, error, isSuccess } = useFiles(formValues);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast(<StatsToast search={data} />);
+    }
+  }, [isSuccess]);
 
   if (collapsed) {
-    return <div />;
+    return <div className="select-none" />;
   }
 
   if (formValues === DEFAULT_FORM_VALUES) {

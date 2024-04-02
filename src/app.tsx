@@ -28,6 +28,7 @@ import { useEffect, useRef, useState } from "react";
 import { DragRegion } from "./components/drag-region";
 import { ImperativePanelHandle } from "react-resizable-panels";
 import { useOperatingSystem } from "./lib/hooks/use-os";
+import { MatchedFile } from "./lib/hooks/use-files";
 
 function App() {
   const formValues = useAtomValue(currentSearch);
@@ -48,16 +49,8 @@ function App() {
   const previewPanelRef = useRef<ImperativePanelHandle>(null);
 
   useEffect(() => {
-    // Resize the preview panel based on the preview file
-    const panel = previewPanelRef.current;
-    const panelSize = panel?.getSize() || 0;
-    if (!previewFile) {
-      // No preview file, make the preview panel small
-      panel?.resize(EMPTY_PANEL_SIZE);
-    } else if (panelSize < OCCUPIED_PANEL_SIZE) {
-      // There is a preview file, but the preview panel is smaller than default
-      panel?.resize(OCCUPIED_PANEL_SIZE);
-    }
+    // Smart resizing of the preview panel
+    handlePreviewFileChange(previewFile, previewPanelRef);
   }, [previewFile]);
 
   return (
@@ -66,7 +59,7 @@ function App() {
         {/* <ContextMenu> */}
 
         {os === "macos" && <DragRegion />}
-        <div className="min-h-screen flex bg-background">
+        <div className="min-h-screen flex">
           <Sidebar />
           <ResizablePanelGroup direction="horizontal" className="min-h-screen">
             <ResizablePanel
@@ -103,3 +96,19 @@ function App() {
 }
 
 export default App;
+
+function handlePreviewFileChange(
+  previewFile: MatchedFile | undefined,
+  previewPanelRef: React.RefObject<ImperativePanelHandle>
+) {
+  // Resize the preview panel based on the preview file
+  const panel = previewPanelRef.current;
+  const panelSize = panel?.getSize() || 0;
+  if (!previewFile) {
+    // No preview file, make the preview panel small
+    panel?.resize(EMPTY_PANEL_SIZE);
+  } else if (panelSize < OCCUPIED_PANEL_SIZE) {
+    // There is a preview file, but the preview panel is smaller than default
+    panel?.resize(OCCUPIED_PANEL_SIZE);
+  }
+}

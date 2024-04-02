@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <App />
-        <Toaster />
+        <Toaster pauseWhenPageIsHidden closeButton position="bottom-center" />
       </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode>

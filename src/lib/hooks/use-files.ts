@@ -1,8 +1,6 @@
 import { SearchFormValues } from "@/components/search-form";
-import { StatsToast } from "@/components/stats-toast";
 import { useQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
-import { toast } from "sonner";
 
 export type MatchContext = {
   line: number;
@@ -39,14 +37,7 @@ export const useFiles = (search: SearchFormValues) => {
         args: args,
       });
 
-      const res = deserializeSearch(data);
-
-      toast(StatsToast({ search: res }), {
-        closeButton: true,
-        position: "bottom-center",
-      });
-
-      return res;
+      return deserializeSearch(data);
     },
 
     enabled: !!search.path,
