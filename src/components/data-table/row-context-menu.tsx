@@ -42,12 +42,7 @@ export function RowContextMenu({ children, row }: RowContextMenuProps) {
           inset
           onClick={() => {
             navigator.clipboard.writeText(row.original.path);
-            // write a custom message based on the path
-            toast("Path copied to clipboard", {
-              description: row.original.path,
-              closeButton: true,
-              position: "bottom-center",
-            });
+            toast.success("Path copied to clipboard");
           }}
         >
           Copy path

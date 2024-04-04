@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 
@@ -20,7 +21,15 @@ export function PathPopover({ path, filename, icon: Icon }: PathPopoverProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full">
-        <p className="font-mono text-xs">{path}</p>
+        <p
+          className="font-mono text-xs select-none cursor-copy"
+          onClick={() => {
+            navigator.clipboard.writeText(path);
+            toast.success("Path copied to clipboard");
+          }}
+        >
+          {path}
+        </p>
       </PopoverContent>
     </Popover>
   );
