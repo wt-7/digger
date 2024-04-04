@@ -1,6 +1,5 @@
 import { Sidebar } from "./components/sidebar";
 import Page from "./components/page";
-// import { ContextMenu } from "./components/context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
@@ -29,6 +28,7 @@ import { DragRegion } from "./components/drag-region";
 import { ImperativePanelHandle } from "react-resizable-panels";
 import { useOperatingSystem } from "./lib/hooks/use-os";
 import { MatchedFile } from "./lib/hooks/use-files";
+import { ContextMenu } from "./components/global-context";
 
 function App() {
   const formValues = useAtomValue(currentSearch);
@@ -43,23 +43,22 @@ function App() {
     mode: "onSubmit",
   });
 
-  useHotkeys("meta+r", () => form.reset(DEFAULT_FORM_VALUES));
-  useHotkeys("meta+shift+r", () => window.location.reload());
-
   const previewPanelRef = useRef<ImperativePanelHandle>(null);
 
   useEffect(() => {
-    // Smart resizing of the preview panel
+    // Ensure that the preview panel is large enough (heuristic)
     handlePreviewFileChange(previewFile, previewPanelRef);
   }, [previewFile]);
+
+  useHotkeys("meta+r", () => form.reset(DEFAULT_FORM_VALUES));
+  useHotkeys("meta+shift+r", () => window.location.reload());
 
   return (
     <TooltipProvider>
       <FormProvider {...form}>
-        {/* <ContextMenu> */}
-
         {os === "macos" && <DragRegion />}
-        <div className="min-h-screen flex">
+        {/* <ContextMenu> */}
+        <div className="min-h-screen flex dark:[color-scheme:dark]">
           <Sidebar />
           <ResizablePanelGroup direction="horizontal" className="min-h-screen">
             <ResizablePanel
@@ -75,7 +74,7 @@ function App() {
               }}
               className={cn(
                 mainSectionCollapsed &&
-                  "min-w-[50px] transition-all duration-300 ease-in-out"
+                  "min-w-[50px] transition-all duration-300 ease-in-out select-none"
               )}
             >
               <Page formValues={formValues} collapsed={mainSectionCollapsed} />

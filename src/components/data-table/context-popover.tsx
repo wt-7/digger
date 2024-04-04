@@ -21,7 +21,7 @@ export function ContextPopover({ needle, matches }: ContextPopoverProps) {
           {needle}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full max-h-96 overflow-y-auto">
+      <PopoverContent className="w-full max-h-96 overflow-y-auto dark:[color-scheme:dark]">
         <Table>
           <TableBody>
             {matches.map((match, index) => (
