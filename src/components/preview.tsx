@@ -1,6 +1,9 @@
 import { usePreview } from "@/lib/hooks/use-preview";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import CodeMirror, { EditorState, EditorView } from "@uiw/react-codemirror";
+import CodeMirror, {
+  EditorState,
+  EditorView,
+  ReactCodeMirrorRef,
+} from "@uiw/react-codemirror";
 import { githubLightInit, githubDarkInit } from "@uiw/codemirror-theme-github";
 import { langs, loadLanguage } from "@uiw/codemirror-extensions-langs";
 import { useTheme } from "@/providers/theme-provider";
@@ -10,6 +13,9 @@ import { atom, useAtomValue } from "jotai";
 import { highlightLines } from "@/lib/highlighter";
 import React from "react";
 import { ErrorAlert } from "./error-alert";
+import { toast } from "sonner";
+import { Button } from "./ui/button";
+import { Scroller } from "./scroller";
 
 export const EMPTY_PANEL_SIZE = 20;
 export const OCCUPIED_PANEL_SIZE = 40;
@@ -21,9 +27,11 @@ export function Preview() {
   const { data, isLoading, isError, error } = usePreview(previewFile);
   const { theme } = useTheme();
 
-  const matchLines = React.useMemo(() => {
+  const linesWithMatches = React.useMemo(() => {
     return previewFile ? getMatchLineNumbers(previewFile) : [];
   }, [previewFile]);
+
+  const editorRef = React.useRef<ReactCodeMirrorRef>(null);
 
   if (!previewFile) {
     return (
@@ -58,44 +66,49 @@ export function Preview() {
   )?.language;
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen ">
       <div className="pt-6 px-6 select-none">
         <h2 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight first:mt-0 truncate">
           {previewFile.filename}
         </h2>
-        <p
-          className="py-2 text-xs text-muted-foreground truncate font-semibold"
-          onDoubleClick={() => {
-            navigator.clipboard.writeText(previewFile.path);
-          }}
-        >
-          {previewFile.path}
-        </p>
-      </div>
-      <ScrollArea className="w-full h-full pl-2">
-        <ScrollBar orientation="vertical" />
-        <div className="py-4">
-          <CodeMirror
-            value={data}
-            theme={theme === "light" ? lightTheme : darkTheme}
-            extensions={[
-              loadLanguage(language || "textile") || langs.textile(),
-              EditorView.editable.of(false),
-              EditorState.readOnly.of(true),
-              EditorView.lineWrapping,
-              highlightLines({ lines: matchLines }),
-            ]}
-            basicSetup={{
-              highlightSelectionMatches: false,
-              lineNumbers: true,
-              foldGutter: false,
-              highlightActiveLine: false,
-              highlightActiveLineGutter: false,
-              searchKeymap: false,
+        <div className="py-2 flex">
+          <p
+            className="text-xs text-muted-foreground font-semibold cursor-copy inline-block truncate"
+            onClick={() => {
+              navigator.clipboard.writeText(previewFile.path);
+              toast.success("Path copied to clipboard");
             }}
-          />
+          >
+            {previewFile.path}
+          </p>
         </div>
-      </ScrollArea>
+      </div>
+      <CodeMirror
+        key={previewFile.path}
+        ref={editorRef}
+        className="border-y-2"
+        value={data}
+        theme={theme === "light" ? lightTheme : darkTheme}
+        extensions={[
+          loadLanguage(language || "textile") || langs.textile(),
+          EditorView.editable.of(false),
+          EditorState.readOnly.of(true),
+          EditorView.lineWrapping,
+          highlightLines({ lines: linesWithMatches }),
+        ]}
+        maxHeight="calc(100vh - 200px)"
+        basicSetup={{
+          highlightSelectionMatches: false,
+          lineNumbers: true,
+          foldGutter: false,
+          highlightActiveLine: false,
+          highlightActiveLineGutter: false,
+          searchKeymap: false,
+        }}
+      />
+      <div>
+        <Scroller editorRef={editorRef} matchIndexes={linesWithMatches} />
+      </div>
     </div>
   );
 }
@@ -114,16 +127,16 @@ const lightTheme = githubLightInit({
 });
 
 function getMatchLineNumbers(file: MatchedFile) {
-  const lines: number[] = [];
+  const lines = new Set<number>();
 
   const matches = file.matches;
 
   Object.keys(matches).forEach((key) => {
     const contexts = matches[key];
     contexts.forEach((context) => {
-      lines.push(context.line);
+      lines.add(context.line);
     });
   });
 
-  return lines;
+  return Array.from(lines);
 }
