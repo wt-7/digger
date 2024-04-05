@@ -14,7 +14,6 @@ import { highlightLines } from "@/lib/highlighter";
 import React from "react";
 import { ErrorAlert } from "./error-alert";
 import { toast } from "sonner";
-import { Button } from "./ui/button";
 import { Scroller } from "./scroller";
 
 export const EMPTY_PANEL_SIZE = 20;
