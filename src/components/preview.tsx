@@ -65,7 +65,7 @@ export function Preview() {
   )?.language;
 
   return (
-    <div className="w-full h-screen ">
+    <div className="w-full h-screen @container/preview">
       <div className="pt-6 px-6 select-none">
         <h2 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight first:mt-0 truncate">
           {previewFile.filename}
@@ -105,7 +105,7 @@ export function Preview() {
           searchKeymap: false,
         }}
       />
-      <div className="flex justify-center mt-4">
+      <div className="hidden justify-center mt-4 @[10rem]/preview:block">
         <MatchNavigation
           editorRef={editorRef}
           linesWithMatches={linesWithMatches}

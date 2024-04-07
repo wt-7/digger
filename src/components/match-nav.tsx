@@ -121,12 +121,12 @@ export function MatchNavigation({
         </Tooltip>
       </div>
       {currentLine !== null && (
-        <div className="grid grid-cols-2 rounded-b-lg border-x border-b w-32 animate-in slide-in-from-top-2 tabular-nums">
+        <div className="grid grid-cols-2 rounded-b-lg border-x border-b w-36 animate-in slide-in-from-top-2 tabular-nums">
           <p className="text-muted-foreground text-sm font-semibold ml-2">
             {linesWithMatches[currentLine]}
           </p>
-          <p className="text-muted-foreground text-sm text-right mr-2">
-            {currentLine + 1} of {linesWithMatches.length}
+          <p className="text-muted-foreground text-sm text-right mr-2 border-l">
+            {currentLine + 1}/{linesWithMatches.length}
           </p>
         </div>
       )}
