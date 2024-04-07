@@ -14,7 +14,7 @@ import { highlightLines } from "@/lib/highlighter";
 import React from "react";
 import { ErrorAlert } from "./error-alert";
 import { toast } from "sonner";
-import { Scroller } from "./scroller";
+import { MatchNavigation } from "./match-nav";
 
 export const EMPTY_PANEL_SIZE = 20;
 export const OCCUPIED_PANEL_SIZE = 40;
@@ -105,8 +105,11 @@ export function Preview() {
           searchKeymap: false,
         }}
       />
-      <div>
-        <Scroller editorRef={editorRef} matchIndexes={linesWithMatches} />
+      <div className="flex justify-center mt-4">
+        <MatchNavigation
+          editorRef={editorRef}
+          linesWithMatches={linesWithMatches}
+        />
       </div>
     </div>
   );
