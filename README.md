@@ -25,7 +25,7 @@ Digger is a GUI text search tool that allows you to search for keyword matches i
 
 _Unscientific benchmark_
 
-Comparing Digger to ripgrep: searching for "hello" or "world" in rust files from the home directory. The results are returned sorted.
+Comparing Digger to [ripgrep](https://github.com/BurntSushi/ripgrep): searching for "hello" or "world" in rust files from the home directory. The results are returned sorted.
 
 ---
 
@@ -35,7 +35,7 @@ Comparing Digger to ripgrep: searching for "hello" or "world" in rust files from
 - "hello" -optional
 - "world" -optional
 
-**Ripgrep**
+**ripgrep**
 
 ```shell
 $ rg "hello|world" -trust -sort path --stats
@@ -45,9 +45,9 @@ $ rg "hello|world" -trust -sort path --stats
 
 **Digger time taken: 0.45s**
 
-**Ripgrep time taken: 0.75s**
+**ripgrep time taken: 0.75s**
 
-This is a quite a biased comparison, as ripgrep is using a regex engine, whereas Digger only uses [aho-corasick](https://github.com/BurntSushi/aho-corasick). Additionally, ripgrep does not sort it's output by default, and sorting will cause a performance penalty.
+This is a quite a biased comparison, as ripgrep is using a regex engine, whereas Digger only uses [Aho-Corasick](https://github.com/BurntSushi/aho-corasick). Additionally, ripgrep does not sort it's output by default, and sorting will cause a performance penalty.
 
 ## Tech Stack
 
