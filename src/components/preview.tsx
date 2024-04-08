@@ -61,7 +61,7 @@ export function Preview() {
   }
 
   const language = EXTENSIONS.find(
-    (ext) => ext.label === previewFile.extension
+    (ext) => ext.value === previewFile.extension
   )?.language;
 
   return (

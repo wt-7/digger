@@ -102,7 +102,9 @@ export function ExtensionField({ form }: FieldProps) {
                         return (
                           <CommandItem
                             key={option.value}
-                            value={option.value} // This fixes the overtype -> backspace issue
+                            // Providing a value fixes the overtype -> backspace issue in the command input,
+                            // where the autocomplete values are removed until the entire input is cleared
+                            value={option.label}
                             onSelect={() => {
                               isSelected
                                 ? field.onChange(
