@@ -45,6 +45,7 @@ export function SearchForm() {
     // Clear the row selection and preview file when a new search is submitted
     // This will prevent the wrong preview file from being displayed when the search results are updated
     setRowSelection({});
+    // Setting the preview file manually is not needed, but snappier
     setPreviewFile(undefined);
     if (isEqual(data, lastSearch)) {
       // If the search has been resubmitted without changes, remove the query to force a refetch.

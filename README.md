@@ -1,60 +1,54 @@
-<p align="center">
-  <p align="center">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="src/assets/digger-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="src/assets/digger-light.svg">
-      <img alt="Digger logo" src="src/assets/digger-dark.svg" width="300px">
-    <picture/>
-  </p>
+<div align="center">
+   <img align="center" width="128px" src="src-tauri/icons/128x128@2x.png" />
 	<h1 align="center"><b>Digger</b></h1>
 	<p align="center">
-		Cross platform text search tool for multiple file types.
-    <br />
-    <br />
-    <br />
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="src/assets/ui-dark.webp">
-      <source media="(prefers-color-scheme: light)" srcset="src/assets/ui-light.webp">
-      <img alt="Digger logo" src="src/assets/digger-dark.svg">
-    <picture/>
+		Cross platform text search tool for multiple file types
   </p>
-</p>
+</div>
 
-## Supported file types
+![client](https://github.com/wt-7/digger/assets/97180065/2b38d5d0-182f-4f25-9052-6dd47997745d)
 
-- Plain text UTF-8 (e.g. .txt, .md, .rs, .tsx)
-- Microsoft Word (.docx)
-- PDF (.pdf)
+<br/>
 
-**More coming soon...**
+Digger is a GUI text search tool that allows you to search for keyword matches in the contents of your files. Digger supports proprietary file types such as pdf and docx, as well as common text-based file types such as txt, md, rs, tsx, etc...
 
-## Installation
+## Features
 
-**Build from source**
+- **Fast (🔥)**
+  - Multi-threaded searching and directory traversal
+- **Required/optional search terms**
+  - Instead of constructing regex queries, searches are done by specifying optional and required keywords. This provides some of the flexibility of regex, without the complexity.
+- **Previews**
+  - Quickly view the context of the match, or view the entire file with syntax highlighting
 
-1.  See [Tauri prequisites](https://tauri.app/v1/guides/getting-started/prerequisites)
+## Performance
 
-2.  Clone the repo `git clone https://github.com/wt-7/digger`
-3.  Install dependencies `pnpm i`
-4.  Build `pnpm tauri build`
-5.  Release binaries will be in `src-tauri/target/release/bundle`
+_Unscientific benchmark_
 
-**More options coming soon...**
+Comparing Digger to ripgrep: searching for "hello" or "world" in rust files from the home directory. The results are returned sorted.
 
-## How fast?
+---
 
-_Unscientific testing_
+**Digger**
 
-For non-standard file types (e.g. docx), Digger is around 2x faster than using ripgrep with a preprocessor.
+- Extensions: rs
+- "hello" -optional
+- "world" -optional
 
-For plain-text files, Digger is about 1/2 as fast as ripgrep.
+**Ripgrep**
 
-## Stack
+```shell
+$ rg "hello|world" -trust -sort path --stats
+```
 
-Framework: [Tauri](https://github.com/tauri-apps/tauri)
+---
 
-Backend: [Rust](https://github.com/rust-lang/rust)
+**Digger time taken: 0.45s**
 
-Frontend: [React](https://github.com/facebook/react) ([TypeScript](https://github.com/microsoft/TypeScript))
+**Ripgrep time taken: 0.75s**
 
-Styling: [Tailwind](https://github.com/tailwindlabs/tailwindcss) + [shadcn/ui](https://github.com/shadcn-ui/ui)
+This is a quite a biased comparison, as ripgrep is using a regex engine, whereas Digger only uses [aho-corasick](https://github.com/BurntSushi/aho-corasick). Additionally, ripgrep does not sort it's output by default, and sorting will cause a performance penalty.
+
+## Tech Stack
+
+Digger is a [Tauri](https://github.com/tauri-apps/tauri) based application. The frontend is built with [React](https://github.com/facebook/react) + [TypeScript](https://github.com/microsoft/TypeScript), and the backend is written in [Rust](https://github.com/rust-lang/rust).
