@@ -662,6 +662,7 @@ dependencies = [
  "ignore",
  "jwalk",
  "line-numbers",
+ "num_cpus",
  "pdf-extract",
  "quick-xml 0.30.0",
  "rayon",

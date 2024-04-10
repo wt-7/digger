@@ -8,7 +8,7 @@ use ignore::WalkState;
 
 /// Somewhat contrived upper bound for the channel capacity.
 /// The goal is to have it large enough to not block the search, but not so large that it uses too much memory.
-const CHANNEL_CAPACITY: usize = 100;
+const CHANNEL_CAPACITY: usize = 1024;
 
 #[derive(Debug, serde::Serialize)]
 pub struct Search {

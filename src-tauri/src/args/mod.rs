@@ -35,9 +35,11 @@ impl Args {
     }
 
     pub fn walker(&self) -> ignore::WalkParallel {
+        let cpus = num_cpus::get();
+
         ignore::WalkBuilder::new(&self.path)
             .max_depth(self.max_depth)
-            .threads(6)
+            .threads(cpus)
             .hidden(self.ignore_hidden)
             .build_parallel()
     }

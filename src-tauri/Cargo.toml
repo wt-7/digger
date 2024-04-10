@@ -36,6 +36,7 @@ ignore = "0.4.22"
 crossbeam-channel = "0.5.12"
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
+num_cpus = "1.16.0"
 
 
 [features]
