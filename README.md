@@ -12,15 +12,6 @@
 
 Digger is a GUI text search tool that allows you to search for keyword matches in the contents of your files. Digger supports proprietary file types such as pdf and docx, as well as common text-based file types such as txt, md, rs, tsx, etc...
 
-## Features
-
-- **Fast (🔥)**
-  - Multi-threaded searching and directory traversal
-- **Required/optional search terms**
-  - Instead of constructing regex queries, searches are done by specifying optional and required keywords. This provides some of the flexibility of regex, without the complexity.
-- **Previews**
-  - Quickly view the context of the match, or view the entire file with syntax highlighting
-
 ## Performance
 
 _Unscientific benchmark_
