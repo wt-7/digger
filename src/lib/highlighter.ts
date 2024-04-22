@@ -18,12 +18,12 @@ const highlightDecoration = Decoration.line({
 });
 
 function applyHighlight(view: EditorView) {
-  let lines = view.state.facet(linesToHighlight);
-  let builder = new RangeSetBuilder<Decoration>();
+  const lines = view.state.facet(linesToHighlight);
+  const builder = new RangeSetBuilder<Decoration>();
 
   for (let { from, to } of view.viewportLineBlocks) {
     for (let pos = from; pos <= to; ) {
-      let line = view.state.doc.lineAt(pos);
+      const line = view.state.doc.lineAt(pos);
       if (lines.includes(line.number)) {
         builder.add(line.from, line.from, highlightDecoration);
       }
