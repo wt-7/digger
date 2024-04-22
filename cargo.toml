@@ -1,0 +1,11 @@
+[workspace]
+members = ["crates/digger-tauri", "crates/digger-core"]
+resolver = "2"
+
+[workspace.dependencies]
+digger-core = { path = "crates/digger-core" }
+
+[profile.release]
+codegen-units = 1 # Compile crates one after another so the compiler can optimize better
+lto = true        # Enables link to optimizations
+opt-level = "s"   # Optimize for binary size

@@ -1,5 +1,5 @@
 <div align="center">
-   <img align="center" width="128px" src="src-tauri/icons/128x128@2x.png" />
+   <img align="center" width="128px" src="crates/digger-tauri/icons/128x128@2x.png" />
 	<h1 align="center"><b>Digger</b></h1>
 	<p align="center">
 		Cross platform text search tool for multiple file types

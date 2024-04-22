@@ -5,7 +5,6 @@ mod commands;
 mod extractors;
 mod logging;
 mod matcher;
-mod utils;
 mod worker;
 use commands::*;
 
