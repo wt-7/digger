@@ -5,7 +5,7 @@ import { useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   DEFAULT_FORM_VALUES,
-  SearchFormValues,
+  type SearchFormValues,
   currentSearch,
   searchFormSchema,
 } from "./components/search-form";
@@ -25,10 +25,10 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import { cn } from "./lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { DragRegion } from "./components/drag-region";
-import { ImperativePanelHandle } from "react-resizable-panels";
+import type { ImperativePanelHandle } from "react-resizable-panels";
 import { useOperatingSystem } from "./lib/hooks/use-os";
-import { MatchedFile } from "./lib/hooks/use-files";
-import { ContextMenu } from "./components/global-context";
+import type { MatchedFile } from "./lib/hooks/use-files";
+// import type { ContextMenu } from "./components/global-context";
 
 function App() {
   const formValues = useAtomValue(currentSearch);

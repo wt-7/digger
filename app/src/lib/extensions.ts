@@ -13,7 +13,7 @@ import {
   TypeScriptIcon,
   WordIcon,
 } from "@/components/file-icons";
-import { LanguageName } from "@uiw/codemirror-extensions-langs";
+import type { LanguageName } from "@uiw/codemirror-extensions-langs";
 
 export const EXTENSIONS: {
   label: string;

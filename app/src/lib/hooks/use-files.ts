@@ -1,4 +1,4 @@
-import { SearchFormValues } from "@/components/search-form";
+import type { SearchFormValues } from "@/components/search-form";
 import { useQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 

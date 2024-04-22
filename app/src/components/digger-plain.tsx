@@ -1,9 +1,10 @@
-import { SVGAttributes } from "react";
+import type { SVGAttributes } from "react";
 
 export function DiggerPlain(props: SVGAttributes<SVGElement>) {
   return (
     <svg
       fill="currentColor"
+      role="graphics-symbol"
       stroke="none"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Table } from "@tanstack/react-table";
+import type * as React from "react";
+import type { Table } from "@tanstack/react-table";
 import { CheckIcon, PlusIcon } from "@radix-ui/react-icons";
 
 import { cn } from "../../lib/utils";
@@ -16,7 +16,7 @@ import {
 } from "../ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
-import { IconProps } from "@radix-ui/react-icons/dist/types";
+import type { IconProps } from "@radix-ui/react-icons/dist/types";
 
 export type FacetedFilter = {
   filterColumn: string;

@@ -1,5 +1,5 @@
 import { useFieldArray } from "react-hook-form";
-import { FieldProps } from "../search-form";
+import type { FieldProps } from "../search-form";
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";

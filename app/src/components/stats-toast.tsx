@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Search } from "@/lib/hooks/use-files";
+import type { Search } from "@/lib/hooks/use-files";
 
 export function StatsToast({ search }: { search: Search }) {
   return (

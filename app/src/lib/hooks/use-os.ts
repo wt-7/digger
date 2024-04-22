@@ -27,8 +27,8 @@ export function useOperatingSystem(): OperatingSystem {
     queryFn: async () => await getOperatingSystem(),
     initialData: guessOperatingSystem,
     // Don't refetch the OS
-    staleTime: Infinity,
-    cacheTime: Infinity,
+    staleTime: Number.POSITIVE_INFINITY,
+    cacheTime: Number.POSITIVE_INFINITY,
   });
 
   return data;

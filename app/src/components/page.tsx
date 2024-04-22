@@ -1,7 +1,7 @@
 import { useFiles } from "@/lib/hooks/use-files";
 import { FileTable } from "./data-table/file-table";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import { DEFAULT_FORM_VALUES, SearchFormValues } from "./search-form";
+import { DEFAULT_FORM_VALUES, type SearchFormValues } from "./search-form";
 import { DiggerPlain } from "./digger-plain";
 import { defaultVis, columns } from "./data-table/columns";
 import { ErrorAlert } from "./error-alert";

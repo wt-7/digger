@@ -1,5 +1,5 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { MatchedFile } from "@/lib/hooks/use-files";
+import type { ColumnDef } from "@tanstack/react-table";
+import type { MatchedFile } from "@/lib/hooks/use-files";
 import { DataTableColumnHeader } from "./data-table-header";
 import { ContextPopover } from "./context-popover";
 import { PathPopover } from "./path-popover";

@@ -1,7 +1,7 @@
-import { EditorView } from "@codemirror/view";
+import type { EditorView } from "@codemirror/view";
 import { Decoration } from "@codemirror/view";
-import { ViewPlugin, DecorationSet, ViewUpdate } from "@codemirror/view";
-import { Extension, Facet, RangeSetBuilder } from "@uiw/react-codemirror";
+import { ViewPlugin, type DecorationSet, type ViewUpdate } from "@codemirror/view";
+import { type Extension, Facet, RangeSetBuilder } from "@uiw/react-codemirror";
 
 const linesToHighlight = Facet.define<number[], number[]>({
   combine: (values) => {
@@ -21,7 +21,7 @@ function applyHighlight(view: EditorView) {
   const lines = view.state.facet(linesToHighlight);
   const builder = new RangeSetBuilder<Decoration>();
 
-  for (let { from, to } of view.viewportLineBlocks) {
+  for (const { from, to } of view.viewportLineBlocks) {
     for (let pos = from; pos <= to; ) {
       const line = view.state.doc.lineAt(pos);
       if (lines.includes(line.number)) {

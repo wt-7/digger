@@ -1,9 +1,9 @@
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  RowSelectionState,
-  SortingState,
-  VisibilityState,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type RowSelectionState,
+  type SortingState,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -26,11 +26,11 @@ import { DebouncedInput } from "../debounced-input";
 import { DataTableColumnVis } from "./data-table-column-vis";
 import {
   DataTableFacetedFilter,
-  FacetedFilter,
+  type FacetedFilter,
 } from "./data-table-faceted-filter";
 import { DataTablePagination } from "./data-table-pagination";
 import { atom, useAtom, useSetAtom } from "jotai";
-import { MatchedFile } from "@/lib/hooks/use-files";
+import type { MatchedFile } from "@/lib/hooks/use-files";
 import { RowContextMenu } from "./row-context-menu";
 import { defaultVis } from "./columns";
 import { currentPreview } from "../preview";

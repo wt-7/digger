@@ -4,8 +4,8 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { MatchedFile } from "@/lib/hooks/use-files";
-import { Row } from "@tanstack/react-table";
+import type { MatchedFile } from "@/lib/hooks/use-files";
+import type { Row } from "@tanstack/react-table";
 import { invoke } from "@tauri-apps/api/tauri";
 import { toast } from "sonner";
 

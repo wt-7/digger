@@ -1,4 +1,4 @@
-import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { useAtomValue } from "jotai";
 import React from "react";
 import { Button } from "./ui/button";

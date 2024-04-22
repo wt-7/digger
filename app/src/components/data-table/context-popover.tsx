@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { MatchContext } from "@/lib/hooks/use-files";
+import type { MatchContext } from "@/lib/hooks/use-files";
 import { Table, TableRow, TableBody, TableCell } from "../ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 

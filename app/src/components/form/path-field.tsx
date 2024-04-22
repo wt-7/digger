@@ -1,4 +1,4 @@
-import { FieldProps } from "../search-form";
+import type { FieldProps } from "../search-form";
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { Button } from "../ui/button";
 import { open } from "@tauri-apps/api/dialog";

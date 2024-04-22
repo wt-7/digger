@@ -1,5 +1,5 @@
 import { LetterCaseCapitalizeIcon } from "@radix-ui/react-icons";
-import { FieldProps } from "../search-form";
+import type { FieldProps } from "../search-form";
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { Toggle } from "../ui/toggle";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";

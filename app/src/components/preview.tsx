@@ -2,12 +2,12 @@ import { usePreview } from "@/lib/hooks/use-preview";
 import CodeMirror, {
   EditorState,
   EditorView,
-  ReactCodeMirrorRef,
+  type ReactCodeMirrorRef,
 } from "@uiw/react-codemirror";
 import { githubLightInit, githubDarkInit } from "@uiw/codemirror-theme-github";
 import { langs, loadLanguage } from "@uiw/codemirror-extensions-langs";
 import { useTheme } from "@/providers/theme-provider";
-import { MatchedFile } from "@/lib/hooks/use-files";
+import type { MatchedFile } from "@/lib/hooks/use-files";
 import { EXTENSIONS } from "@/lib/extensions";
 import { atom, useAtomValue } from "jotai";
 import { highlightLines } from "@/lib/highlighter";
