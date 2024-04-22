@@ -19,7 +19,7 @@ export function Sidebar() {
         className={cn(
           "text-primary w-24 shrink-0",
           // Account for the custom titlebar and drag region on macOS
-          os === "macos" ? "mt-9" : "mt-2"
+          os === "macos" ? "mt-9" : "mt-2",
         )}
       />
       <ScrollArea className="h-[calc(100vh-16.0rem)] mt-2">
@@ -35,7 +35,7 @@ export function Sidebar() {
           form="main"
           className={cn(
             "w-full bg-amber-600 hover:bg-amber-600/90",
-            isFetching && "animate-pulse"
+            isFetching && "animate-pulse",
           )}
         >
           Dig!

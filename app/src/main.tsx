@@ -16,5 +16,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Toaster pauseWhenPageIsHidden closeButton position="bottom-center" />
       </QueryClientProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

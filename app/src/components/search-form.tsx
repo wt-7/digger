@@ -19,7 +19,7 @@ export const searchFormSchema = z.object({
       pattern: z.string().max(100).min(1, { message: "Required" }),
 
       required: z.boolean(),
-    })
+    }),
   ),
   case_sensitive: z.boolean(),
 });

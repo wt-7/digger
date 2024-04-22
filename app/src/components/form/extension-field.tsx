@@ -53,7 +53,7 @@ export function ExtensionField({ form }: FieldProps) {
                           </Badge>
                         ) : (
                           EXTENSIONS.filter((option) =>
-                            field.value.includes(option.value)
+                            field.value.includes(option.value),
                           ).map((option) => (
                             <Badge
                               variant="secondary"
@@ -79,7 +79,7 @@ export function ExtensionField({ form }: FieldProps) {
                         <CommandItem
                           onSelect={() =>
                             field.onChange(
-                              EXTENSIONS.map((option) => option.value)
+                              EXTENSIONS.map((option) => option.value),
                             )
                           }
                           className="justify-center text-center"
@@ -109,8 +109,8 @@ export function ExtensionField({ form }: FieldProps) {
                               isSelected
                                 ? field.onChange(
                                     field.value.filter(
-                                      (value) => value !== option.value
-                                    )
+                                      (value) => value !== option.value,
+                                    ),
                                   )
                                 : field.onChange([
                                     ...field.value,
@@ -123,7 +123,7 @@ export function ExtensionField({ form }: FieldProps) {
                                 "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                                 isSelected
                                   ? "bg-primary text-primary-foreground"
-                                  : "opacity-50 [&_svg]:invisible"
+                                  : "opacity-50 [&_svg]:invisible",
                               )}
                             >
                               <CheckIcon className={cn("h-4 w-4")} />

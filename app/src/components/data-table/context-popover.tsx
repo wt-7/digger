@@ -15,7 +15,7 @@ export function ContextPopover({ needle, matches }: ContextPopoverProps) {
       <PopoverTrigger asChild>
         <Button
           className={cn(
-            "h-6 rounded-md px-2.5 py-0.5 text-xs font-semibold truncate"
+            "h-6 rounded-md px-2.5 py-0.5 text-xs font-semibold truncate",
           )}
         >
           {needle}

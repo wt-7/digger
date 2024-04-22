@@ -108,7 +108,7 @@ export function DataTableFacetedFilter<TData>({
                       }
                       const filterValues = Array.from(selectedValues);
                       column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined
+                        filterValues.length ? filterValues : undefined,
                       );
                     }}
                   >
@@ -117,7 +117,7 @@ export function DataTableFacetedFilter<TData>({
                         "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                         isSelected
                           ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible"
+                          : "opacity-50 [&_svg]:invisible",
                       )}
                     >
                       <CheckIcon className={cn("h-4 w-4")} />

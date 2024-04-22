@@ -9,5 +9,10 @@
       "recommended": true
     },
     "ignore": ["node_modules/**/*", "dist/**/*"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
   }
 }

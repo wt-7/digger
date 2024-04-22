@@ -83,7 +83,7 @@ export function NeedleFields({ form }: FieldProps) {
             onClick={() => {
               // Remove the first empty field, or the last field if none are empty.
               const firstEmpty = fields.findIndex(
-                (field) => field.pattern === ""
+                (field) => field.pattern === "",
               );
 
               if (firstEmpty !== -1) {

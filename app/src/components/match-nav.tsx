@@ -42,7 +42,7 @@ export function MatchNavigation({
                 setCurrentLine(firstMatchIndex);
                 scrollToLineCentered(
                   editorRef,
-                  linesWithMatches[firstMatchIndex]
+                  linesWithMatches[firstMatchIndex],
                 );
               }}
             >
@@ -66,7 +66,7 @@ export function MatchNavigation({
                 setCurrentLine(prevLineIndex);
                 scrollToLineCentered(
                   editorRef,
-                  linesWithMatches[prevLineIndex]
+                  linesWithMatches[prevLineIndex],
                 );
               }}
             >
@@ -91,7 +91,7 @@ export function MatchNavigation({
                 setCurrentLine(nextLineIndex);
                 scrollToLineCentered(
                   editorRef,
-                  linesWithMatches[nextLineIndex]
+                  linesWithMatches[nextLineIndex],
                 );
               }}
             >
@@ -111,7 +111,7 @@ export function MatchNavigation({
                 setCurrentLine(lastMatchIndex);
                 scrollToLineCentered(
                   editorRef,
-                  linesWithMatches[lastMatchIndex]
+                  linesWithMatches[lastMatchIndex],
                 );
               }}
             >
@@ -137,7 +137,7 @@ export function MatchNavigation({
 
 function scrollToLineCentered(
   editorRef: React.RefObject<ReactCodeMirrorRef>,
-  lineToView: number
+  lineToView: number,
 ) {
   const { firstVisibleLine, lastVisibleLine } = calcVisibleLines(editorRef);
   const totalVisibleLines = lastVisibleLine - firstVisibleLine;
@@ -164,7 +164,7 @@ function scrollToLineCentered(
 
 function scrollToView(
   editorRef: React.RefObject<ReactCodeMirrorRef>,
-  line: number
+  line: number,
 ) {
   const cm = editorRef.current;
 
@@ -193,12 +193,12 @@ function calcVisibleLines(editorRef: React.RefObject<ReactCodeMirrorRef>) {
 
   const topVisibleLineBlock = cm.view.lineBlockAtHeight(rect.top - docTop);
   const bottomVisibleLineBlock = cm.view.lineBlockAtHeight(
-    rect.bottom - docTop
+    rect.bottom - docTop,
   );
 
   const firstVisibleLine = cm.state.doc.lineAt(topVisibleLineBlock.from).number;
   const lastVisibleLine = cm.state.doc.lineAt(
-    bottomVisibleLineBlock.from
+    bottomVisibleLineBlock.from,
   ).number;
 
   return { firstVisibleLine, lastVisibleLine };

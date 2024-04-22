@@ -1,6 +1,10 @@
 import type { EditorView } from "@codemirror/view";
 import { Decoration } from "@codemirror/view";
-import { ViewPlugin, type DecorationSet, type ViewUpdate } from "@codemirror/view";
+import {
+  ViewPlugin,
+  type DecorationSet,
+  type ViewUpdate,
+} from "@codemirror/view";
 import { type Extension, Facet, RangeSetBuilder } from "@uiw/react-codemirror";
 
 const linesToHighlight = Facet.define<number[], number[]>({
@@ -48,7 +52,7 @@ const showHighlight = ViewPlugin.fromClass(
   },
   {
     decorations: (v) => v.decorations,
-  }
+  },
 );
 
 export function highlightLines(options: { lines: number[] }): Extension {

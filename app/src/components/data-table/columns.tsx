@@ -22,7 +22,7 @@ export const columns: ColumnDef<MatchedFile>[] = [
 
     cell: ({ row }) => {
       const icon = EXTENSIONS.find(
-        (ext) => ext.value === row.original.extension
+        (ext) => ext.value === row.original.extension,
       )?.icon;
 
       return (

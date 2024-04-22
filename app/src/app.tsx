@@ -74,7 +74,7 @@ function App() {
               }}
               className={cn(
                 mainSectionCollapsed &&
-                  "min-w-[50px] transition-all duration-300 ease-in-out select-none"
+                  "min-w-[50px] transition-all duration-300 ease-in-out select-none",
               )}
             >
               <Page formValues={formValues} collapsed={mainSectionCollapsed} />
@@ -98,7 +98,7 @@ export default App;
 
 function handlePreviewFileChange(
   previewFile: MatchedFile | undefined,
-  previewPanelRef: React.RefObject<ImperativePanelHandle>
+  previewPanelRef: React.RefObject<ImperativePanelHandle>,
 ) {
   // Resize the preview panel based on the preview file
   const panel = previewPanelRef.current;
