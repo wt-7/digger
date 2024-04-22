@@ -16,7 +16,7 @@ export function NeedleFields({ form }: FieldProps) {
   return (
     <div className="flex flex-col space-y-2">
       {fields.map((field, index) => (
-        <div className="flex space-x-2" key={index}>
+        <div className="flex space-x-2" key={field.id}>
           <FormField
             control={form.control}
             key={`${field.id}.value`}

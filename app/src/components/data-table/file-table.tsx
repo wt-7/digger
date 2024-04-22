@@ -89,6 +89,7 @@ export function FileTable({ columns, data }: FileTableProps) {
     .getSelectedRowModel()
     .rows.map(({ original }) => original);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: No need to include the preview setter in the dependency array
   React.useEffect(() => {
     // Indexing out of bounds will be undefined, which is fine
     setPreviewFile(selectedRows[0]);

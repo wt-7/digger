@@ -71,6 +71,7 @@ export function Preview() {
           {previewFile.filename}
         </h2>
         <div className="py-2 flex">
+          {/* biome-ignore lint/a11y/useKeyWithClickEvents: Consider supporting this */}
           <p
             className="text-xs text-muted-foreground font-semibold cursor-copy inline-block truncate"
             onClick={() => {
@@ -133,12 +134,11 @@ function getMatchLineNumbers(file: MatchedFile) {
 
   const matches = file.matches;
 
-  Object.keys(matches).forEach((key) => {
+  for (const key of Object.keys(matches)) {
     const contexts = matches[key];
-    contexts.forEach((context) => {
+    for (const context of contexts) {
       lines.add(context.line);
-    });
-  });
-
+    }
+  }
   return Array.from(lines);
 }

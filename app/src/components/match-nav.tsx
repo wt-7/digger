@@ -23,6 +23,7 @@ export function MatchNavigation({
   const [currentLine, setCurrentLine] = React.useState<number | null>(null);
   const previewFile = useAtomValue(currentPreview);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only reset the current line when the preview file changes
   React.useEffect(() => {
     setCurrentLine(null);
   }, [previewFile]);

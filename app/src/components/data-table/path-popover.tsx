@@ -21,6 +21,7 @@ export function PathPopover({ path, filename, icon: Icon }: PathPopoverProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full">
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: Consider supporting this */}
         <p
           className="font-mono text-xs select-none cursor-copy"
           onClick={() => {

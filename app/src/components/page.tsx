@@ -17,7 +17,7 @@ export interface PageProps {
 export default function Page({ formValues, collapsed }: PageProps) {
   const { data, isLoading, isError, error, isSuccess } = useFiles(formValues);
 
-  // Show toast when a new search is successful (not retrieved from cache)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only toast when a new search is successful (not retrieved from cache)
   useEffect(() => {
     if (isSuccess) {
       toast(<StatsToast search={data} />);

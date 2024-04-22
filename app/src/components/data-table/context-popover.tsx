@@ -25,6 +25,7 @@ export function ContextPopover({ needle, matches }: ContextPopoverProps) {
         <Table>
           <TableBody>
             {matches.map((match, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: List is static
               <TableRow key={index}>
                 <TableCell className="font-medium">{match.line}</TableCell>
                 <TableCell>
