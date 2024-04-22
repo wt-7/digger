@@ -1,11 +1,7 @@
-use crate::{
-    matcher::{PatternMatcher, PatternMatcherBuilder},
+use digger_core::{
+    matcher::{Needle, PatternMatcher, PatternMatcherBuilder},
     worker::{SearchWorker, SearchWorkerBuilder},
 };
-
-mod needle;
-
-pub use self::needle::Needle;
 
 /// Arguments passed to the application from the frontend.
 /// Tauri handles the deserialization of the struct when used in a tauri::command

@@ -3,7 +3,9 @@ use std::{
     sync::atomic::{AtomicUsize, Ordering},
 };
 
-use crate::{args::Args, worker::matched_file::MatchedFile};
+use crate::args::Args;
+use digger_core::worker::matched_file::MatchedFile;
+
 use ignore::WalkState;
 
 /// Somewhat contrived upper bound for the channel capacity.

@@ -649,6 +649,25 @@ dependencies = [
 [[package]]
 name = "digger-core"
 version = "0.1.0"
+dependencies = [
+ "aho-corasick",
+ "anyhow",
+ "crossbeam-channel",
+ "ignore",
+ "jwalk",
+ "line-numbers",
+ "num_cpus",
+ "pdf-extract",
+ "quick-xml 0.30.0",
+ "rayon",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "time",
+ "tracing",
+ "tracing-subscriber",
+ "zip",
+]
 
 [[package]]
 name = "digger-tauri"
@@ -657,6 +676,7 @@ dependencies = [
  "aho-corasick",
  "anyhow",
  "crossbeam-channel",
+ "digger-core",
  "ignore",
  "jwalk",
  "line-numbers",

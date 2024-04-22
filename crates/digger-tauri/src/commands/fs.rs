@@ -20,9 +20,8 @@ pub async fn open_with_default(path: &str) -> Result<(), String> {
 #[tauri::command]
 #[tracing::instrument]
 pub async fn preview_file(path: &str) -> Result<String, String> {
-    crate::extractors::extract_text(path).map_err(|e| e.to_string())
+    digger_core::extract_text(path).map_err(|e| e.to_string())
 }
-
 
 fn open_path<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
     #[cfg(target_os = "windows")]

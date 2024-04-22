@@ -2,10 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod args;
 mod commands;
-mod extractors;
 mod logging;
-mod matcher;
-mod worker;
 use commands::*;
 
 fn main() {

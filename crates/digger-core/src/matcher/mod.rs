@@ -1,10 +1,11 @@
-use crate::args::Needle;
 use aho_corasick::AhoCorasick;
 use line_numbers::LinePositions;
 use std::collections::{BTreeMap, BTreeSet};
 mod context;
+mod needle;
 use context::Context;
 
+pub use needle::Needle;
 pub type Matches = BTreeMap<String, Vec<Context>>;
 pub struct PatternMatcher {
     needles: Vec<Needle>,
