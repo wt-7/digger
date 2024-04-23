@@ -12,7 +12,7 @@ pub struct MatchedFile {
 }
 
 impl MatchedFile {
-    pub fn new<P: AsRef<Path>>(path: P, matches: Matches) -> anyhow::Result<Self> {
+    pub(crate) fn new<P: AsRef<Path>>(path: P, matches: Matches) -> anyhow::Result<Self> {
         let path = path.as_ref();
 
         let metadata = path.metadata()?.into();

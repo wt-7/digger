@@ -1,4 +1,5 @@
 use anyhow::Context;
+use digger_core::extractor;
 use std::path::Path;
 
 #[tauri::command]
@@ -20,7 +21,7 @@ pub async fn open_with_default(path: &str) -> Result<(), String> {
 #[tauri::command]
 #[tracing::instrument]
 pub async fn preview_file(path: &str) -> Result<String, String> {
-    digger_core::extract_text(path).map_err(|e| e.to_string())
+    extractor::extract_text(path).map_err(|e| e.to_string())
 }
 
 fn open_path<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
