@@ -6,7 +6,8 @@ mod needle;
 use context::Context;
 
 pub use needle::Needle;
-pub type Matches = BTreeMap<String, Vec<Context>>;
+
+pub(crate) type Matches = BTreeMap<String, Vec<Context>>;
 pub struct PatternMatcher {
     needles: Vec<Needle>,
     // Required needles is a set of indexes into the needles vector.
@@ -16,7 +17,8 @@ pub struct PatternMatcher {
 }
 
 impl PatternMatcher {
-    pub fn find_matches(&self, contents: &str) -> anyhow::Result<Matches> {
+    /// Find all matches in the given contents. Intended to be used within a worker
+    pub(crate) fn find_matches(&self, contents: &str) -> anyhow::Result<Matches> {
         let mut matches = Matches::new();
         let mut required_needles = BTreeSet::new();
         let line_positions = LinePositions::from(contents);

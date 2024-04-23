@@ -1,6 +1,6 @@
 use std::path::Path;
 
-pub fn read_pdf<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
+pub(crate) fn read_pdf<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
     // pdf_extract likes to panic a lot
     let path = path.as_ref();
     std::panic::catch_unwind(|| pdf_extract::extract_text(path).map_err(|e| e.into()))
