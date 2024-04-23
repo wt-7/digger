@@ -32,8 +32,7 @@ impl SearchWorker {
         self.extensions.contains(&file_extension)
             && self
                 .max_file_size
-                .map(|max_size| file_size <= max_size)
-                .unwrap_or(true)
+                .map_or(true, |max_size| file_size <= max_size)
     }
 
     pub fn search_path<P: AsRef<Path>>(

@@ -9,7 +9,7 @@ pub fn init() {
         .compact();
 
     let log_level_filter = std::env::var("LOG_LEVEL")
-        .unwrap_or("info".to_string())
+        .unwrap_or_else(|_| "info".to_string())
         .to_lowercase()
         .parse()
         .unwrap_or(LevelFilter::INFO);
