@@ -78,9 +78,8 @@ impl PatternMatcherBuilder {
     }
 
     pub fn build(&self) -> anyhow::Result<PatternMatcher> {
-        let needles = self.needles.clone();
-
-        let required_needles = needles
+        let required_needles = self
+            .needles
             .iter()
             .enumerate()
             .filter_map(|(idx, n)| if n.is_required() { Some(idx) } else { None })
@@ -88,10 +87,10 @@ impl PatternMatcherBuilder {
 
         let matcher = aho_corasick::AhoCorasick::builder()
             .ascii_case_insensitive(self.ignore_case)
-            .build(&needles)?;
+            .build(&self.needles)?;
 
         Ok(PatternMatcher {
-            needles,
+            needles: self.needles.clone(),
             required_needles,
             inner: matcher,
         })
