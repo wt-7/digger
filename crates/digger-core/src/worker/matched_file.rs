@@ -46,7 +46,7 @@ impl MatchedFile {
 
 impl Ord for MatchedFile {
     fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        other.modified().cmp(&self.modified())
+        other.modified().cmp(self.modified())
     }
 }
 

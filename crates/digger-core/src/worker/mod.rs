@@ -46,20 +46,12 @@ impl SearchWorker {
         MatchedFile::new(path.as_ref(), matches)
     }
 }
-
+#[derive(Default)]
 pub struct SearchWorkerBuilder {
     extensions: Vec<String>,
     max_file_size: Option<u64>,
 }
 
-impl Default for SearchWorkerBuilder {
-    fn default() -> Self {
-        Self {
-            extensions: Vec::new(),
-            max_file_size: None,
-        }
-    }
-}
 impl SearchWorkerBuilder {
     pub fn new() -> Self {
         Self::default()

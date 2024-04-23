@@ -61,8 +61,8 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
             entries_checked.fetch_add(1, Ordering::Relaxed);
 
             let path = entry.path();
-            if searcher.should_search(&path) {
-                let search_result = searcher.search_path(&path, &matcher);
+            if searcher.should_search(path) {
+                let search_result = searcher.search_path(path, matcher);
                 files_searched.fetch_add(1, Ordering::Relaxed);
                 if let Ok(search_result) = search_result {
                     s.send(search_result).ok();

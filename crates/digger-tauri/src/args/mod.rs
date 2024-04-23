@@ -21,7 +21,7 @@ impl Args {
         // Remove duplicate needles. Sorting by required ensures that a duplicated needle
         // with required=true will be kept.
         let mut needles = self.needles.clone();
-        needles.sort_by(|a, b| b.is_required().cmp(&a.is_required()));
+        needles.sort_by_key(|b| std::cmp::Reverse(b.is_required()));
         needles.dedup_by(|a, b| a.pattern() == b.pattern());
 
         SearchWorkerBuilder::new()
