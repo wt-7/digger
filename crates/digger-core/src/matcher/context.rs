@@ -5,7 +5,7 @@ const MAX_POSTFIX_WHITESPACE: usize = 3;
 /// The context surrounding a match in a haystack. The infix is the match itself, with the surrounding
 /// postfix and prefix built from the haystack.
 #[derive(serde::Serialize, Debug)]
-pub(crate) struct Context {
+pub struct Context {
     line: usize,
     prefix: String,
     infix: String,

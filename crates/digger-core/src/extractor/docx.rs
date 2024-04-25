@@ -4,7 +4,7 @@ use std::io::prelude::*;
 use std::path::Path;
 use zip::ZipArchive;
 
-pub(crate) fn read_docx<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
+pub fn read_docx<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
     let file = File::open(path.as_ref())?;
 
     let mut archive = ZipArchive::new(file)?;

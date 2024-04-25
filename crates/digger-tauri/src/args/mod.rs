@@ -60,10 +60,7 @@ fn dedup_needles(needles: Vec<Needle>) -> Vec<Needle> {
             .or_insert(needle);
     }
 
-    unique_needles
-        .into_iter()
-        .map(|(_, needle)| needle)
-        .collect()
+    unique_needles.into_values().collect()
 }
 
 #[cfg(test)]
@@ -74,7 +71,7 @@ mod tests {
     fn test_dedup_needles() {
         let json = r#"[{"pattern":"needle1","required":false},{"pattern":"needle2","required":false},{"pattern":"needle2","required":true}]"#;
         let needles = dedup_needles(serde_json::from_str(json).unwrap());
-        
+
         assert_eq!(needles.len(), 2);
 
         assert_eq!(needles[0].pattern(), "needle1");
