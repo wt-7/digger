@@ -14,7 +14,7 @@ Digger is a GUI text search tool that allows you to search for keyword matches i
 
 ## Download
 
-Find the latest releases [here](github.com/wt-7/digger/releases/latest) for Windows and MacOS (Apple Silicon).
+Find the latest releases [here](https://github.com/wt-7/digger/releases/latest) for Windows and MacOS (Apple Silicon).
 
 ## Performance
 
