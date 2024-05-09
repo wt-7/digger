@@ -1,5 +1,5 @@
 use std::{
-    collections::BTreeSet,
+    collections::{BTreeSet, BinaryHeap},
     sync::atomic::{AtomicUsize, Ordering},
 };
 
@@ -35,9 +35,9 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
     let (s, r) = crossbeam_channel::bounded::<MatchedFile>(CHANNEL_CAPACITY);
 
     let result_thread = std::thread::spawn(move || {
-        let mut matches = BTreeSet::new();
+        let mut matches = BinaryHeap::new();
         for matched_file in r {
-            matches.insert(matched_file);
+            matches.push(matched_file);
         }
         matches
     });
@@ -82,7 +82,7 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
     let duration = start_time.elapsed();
 
     Ok(Search {
-        files: matches.into_iter().collect(),
+        files: matches.into_sorted_vec(),
         duration: duration.as_millis(),
         entries_checked: entries_checked.into_inner(),
 
