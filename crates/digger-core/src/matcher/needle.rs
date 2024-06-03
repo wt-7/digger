@@ -4,6 +4,16 @@ pub struct Needle {
     required: bool,
 }
 
+impl Needle {
+    #[cfg(test)]
+    pub fn new(pattern: &str, required: bool) -> Self {
+        Self {
+            pattern: pattern.to_string(),
+            required,
+        }
+    }
+}
+
 // Required for AhoCorasick
 impl AsRef<[u8]> for Needle {
     fn as_ref(&self) -> &[u8] {

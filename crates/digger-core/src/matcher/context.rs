@@ -31,6 +31,22 @@ impl Context {
             postfix,
         }
     }
+    #[cfg(test)]
+    pub fn line(&self) -> usize {
+        self.line
+    }
+    #[cfg(test)]
+    pub fn prefix(&self) -> &str {
+        &self.prefix
+    }
+    #[cfg(test)]
+    pub fn infix(&self) -> &str {
+        &self.infix
+    }
+    #[cfg(test)]
+    pub fn postfix(&self) -> &str {
+        &self.postfix
+    }
 }
 
 /// Builds the prefix of a match context. Given the start index of the match in the haystack,
@@ -60,9 +76,9 @@ fn build_prefix(haystack: &str, infix_start: usize) -> String {
 /// Builds the postfix of a match context. Given the end index of the match in the haystack,
 /// it will iterate from end index and collect characters until it reaches the maximum length
 /// or the maximum number of whitespace characters.
-fn build_postfix(haystack: &str, infix_end: usize) -> String {
+fn build_postfix(haystack: &str, postfix_start: usize) -> String {
     let mut whitespace_count = 0;
-    haystack[infix_end..]
+    haystack[postfix_start..]
         .chars()
         .take(MAX_CONTEXT_LENGTH)
         .take_while(|c| {
@@ -83,31 +99,55 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_prefix() {
+    fn test_build_prefix_works() {
         let haystack = "The quick brown fox jumps over the lazy dog";
-
         let prefix1 = build_prefix(haystack, 20);
-
         assert_eq!(prefix1, "brown fox ");
     }
 
     #[test]
-    fn test_postfix() {
+    fn test_build_prefix_works_no_prefix() {
         let haystack = "The quick brown fox jumps over the lazy dog";
-
-        let postfix = build_postfix(haystack, 25);
-
-        assert_eq!(postfix, " over the");
+        let prefix1 = build_prefix(haystack, 0);
+        assert_eq!(prefix1, "");
     }
 
     #[test]
-    fn test_context() {
+    fn test_build_prefix_terminates_on_newline() {
+        let haystack = "01234\n6789";
+        let prefix = build_prefix(haystack, 8);
+        assert_eq!(prefix, "67");
+    }
+
+    #[test]
+    fn test_build_postfix_works() {
         let haystack = "The quick brown fox jumps over the lazy dog";
+        let postfix = build_postfix(haystack, 25);
+        assert_eq!(postfix, " over the lazy");
+    }
 
-        let context = Context::from_haystack(haystack, 20, 25, 0);
+    #[test]
+    fn test_build_postfix_works_no_postfix() {
+        let haystack = "The quick brown fox jumps over the lazy dog";
+        let postfix = build_postfix(haystack, 43);
+        assert_eq!(postfix, "");
+    }
 
-        assert_eq!(context.prefix, "quick brown fox ");
+    #[test]
+    fn test_build_postfix_terminates_on_newline() {
+        let haystack = "01234\n6789";
+        let postfix = build_postfix(haystack, 2);
+        assert_eq!(postfix, "234");
+    }
+
+    #[test]
+    fn test_context_works() {
+        let haystack = "The quick brown fox jumps over the lazy dog";
+        let line = 0;
+        let context = Context::from_haystack(haystack, 20, 25, line);
+
+        assert_eq!(context.prefix, "brown fox ");
         assert_eq!(context.infix, "jumps");
-        assert_eq!(context.postfix, " over the");
+        assert_eq!(context.postfix, " over the lazy");
     }
 }

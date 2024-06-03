@@ -17,7 +17,8 @@ pub struct PatternMatcher {
 }
 
 impl PatternMatcher {
-    /// Find all matches in the given contents.
+    /// Find the matches in the given contents. If the contents do not contain all of the required needles,
+    /// it will be considered a non-match.
     pub(crate) fn find_matches(&self, contents: &str) -> Option<Matches> {
         let mut matches = Matches::new();
         let mut required_needles = BTreeSet::new();
@@ -96,5 +97,119 @@ impl PatternMatcherBuilder {
             required_needles,
             inner: matcher,
         })
+    }
+}
+
+#[cfg(test)]
+
+mod tests {
+    use super::{Needle, PatternMatcherBuilder};
+
+    #[test]
+    fn test_pattern_matcher_works() {
+        let text = "Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua";
+
+        let needles = vec![Needle::new("lorem", false), Needle::new("dolor", false)];
+
+        let matcher = PatternMatcherBuilder::new()
+            .add_needles(&needles)
+            .build()
+            .unwrap();
+
+        let matches = matcher.find_matches(text).unwrap();
+
+        assert_eq!(matches.len(), 2);
+
+        let lorem_ctx = &matches["lorem"][0];
+        let dolor_ctx_1 = &matches["dolor"][0];
+        let dolor_ctx_2 = &matches["dolor"][1];
+
+        assert_eq!(lorem_ctx.line(), 1);
+        assert_eq!(lorem_ctx.prefix(), "");
+        assert_eq!(lorem_ctx.infix(), "Lorem");
+        assert_eq!(lorem_ctx.postfix(), " ipsum dolor sit");
+
+        assert_eq!(dolor_ctx_1.line(), 1);
+        assert_eq!(dolor_ctx_1.prefix(), "Lorem ipsum ");
+        assert_eq!(dolor_ctx_1.infix(), "dolor");
+        assert_eq!(dolor_ctx_1.postfix(), " sit amet,");
+
+        assert_eq!(dolor_ctx_2.line(), 4);
+        assert_eq!(dolor_ctx_2.prefix(), "labore et ");
+        assert_eq!(dolor_ctx_2.infix(), "dolor");
+        assert_eq!(dolor_ctx_2.postfix(), "e magna aliqua");
+    }
+
+    #[test]
+    fn test_pattern_matcher_works_case_sensitive() {
+        let text = "Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt
+        ut labore et Dolore magna aliqua";
+
+        let needles = vec![Needle::new("lorem", false), Needle::new("dolor", false)];
+
+        let matcher = PatternMatcherBuilder::new()
+            .add_needles(&needles)
+            .ignore_case(false)
+            .build()
+            .unwrap();
+
+        let matches = matcher.find_matches(text).unwrap();
+
+        assert_eq!(matches.len(), 1);
+
+        let dolor_ctx = &matches["dolor"][0];
+
+        assert_eq!(dolor_ctx.line(), 1);
+        assert_eq!(dolor_ctx.prefix(), "Lorem ipsum ");
+        assert_eq!(dolor_ctx.infix(), "dolor");
+        assert_eq!(dolor_ctx.postfix(), " sit amet,");
+    }
+    #[test]
+    fn test_pattern_matcher_returns_none_when_required_needle_is_missing() {
+        let text = "Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua";
+
+        let needles = vec![
+            Needle::new("not in the text", true),
+            Needle::new("dolor", true),
+        ];
+
+        let matcher = PatternMatcherBuilder::new()
+            .add_needles(&needles)
+            .build()
+            .unwrap();
+
+        let matches = matcher.find_matches(text);
+
+        assert!(matches.is_none());
+    }
+
+    #[test]
+    fn test_pattern_matcher_works_when_optional_needle_is_missing() {
+        let text = "Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua";
+
+        let needles = vec![
+            Needle::new("not in the text", false),
+            Needle::new("dolor", true),
+        ];
+
+        let matcher = PatternMatcherBuilder::new()
+            .add_needles(&needles)
+            .build()
+            .unwrap();
+
+        let matches = matcher.find_matches(text);
+
+        assert!(matches.is_some());
     }
 }

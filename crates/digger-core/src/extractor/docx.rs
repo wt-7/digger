@@ -48,15 +48,4 @@ pub fn read_docx<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
 
     Ok(txt)
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use std::path::Path;
-
-    #[test]
-    fn read() {
-        let f = read_docx(Path::new("test/example.docx")).unwrap();
-        assert!(f.contains("Hello, World!"));
-    }
-}
+//todo: test

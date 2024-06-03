@@ -2,7 +2,7 @@ use digger_core::{
     matcher::{Needle, PatternMatcher, PatternMatcherBuilder},
     worker::{SearchWorker, SearchWorkerBuilder},
 };
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// Arguments passed to the application from the frontend.
 /// Tauri handles the deserialization of the struct when used in a tauri::command
@@ -46,7 +46,7 @@ impl Args {
 }
 
 fn dedup_needles(needles: Vec<Needle>) -> Vec<Needle> {
-    let mut unique_needles: HashMap<String, Needle> = HashMap::new();
+    let mut unique_needles: BTreeMap<String, Needle> = BTreeMap::new();
 
     for needle in needles {
         unique_needles
@@ -68,7 +68,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_dedup_needles() {
+    fn test_dedup_needles_works() {
         let json = r#"[{"pattern":"needle1","required":false},{"pattern":"needle2","required":false},{"pattern":"needle2","required":true}]"#;
         let needles = dedup_needles(serde_json::from_str(json).unwrap());
 
