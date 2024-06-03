@@ -78,11 +78,20 @@ pub async fn file_search(args: Args) -> crate::Result<Search> {
 
     let duration = start_time.elapsed();
 
-    Ok(Search {
+    let search = Search {
         files: matches.into_sorted_vec(),
         duration: duration.as_millis(),
         entries_checked: entries_checked.into_inner(),
-
         files_searched: files_searched.into_inner(),
-    })
+    };
+
+    tracing::info!(
+        "searched {} files in {} entries in {}ms. Found {} matches",
+        search.files_searched,
+        search.entries_checked,
+        search.duration,
+        search.files.len()
+    );
+
+    Ok(search)
 }

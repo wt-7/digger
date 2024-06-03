@@ -9,19 +9,27 @@ pub async fn open_in_explorer(path: &str) -> crate::Result<()> {
         .parent()
         .context("Failed to get parent path")
         .and_then(open_path)
+        .inspect_err(|e| tracing::error!("failed to open parent path: {e}"))
+        .inspect(|_| tracing::info!("opened parent path of: {path}"))
         .map_err(Into::into)
 }
 
 #[tauri::command]
 #[tracing::instrument]
 pub async fn open_with_default(path: &str) -> crate::Result<()> {
-    open_path(path).map_err(Into::into)
+    open_path(path)
+        .inspect_err(|e| tracing::error!("failed to open path: {e}"))
+        .inspect(|_| tracing::info!("opened path: {path}"))
+        .map_err(Into::into)
 }
 
 #[tauri::command]
 #[tracing::instrument]
 pub async fn preview_file(path: &str) -> crate::Result<String> {
-    extractor::extract_text(path).map_err(Into::into)
+    extractor::extract_text(path)
+        .inspect_err(|e| tracing::error!("failed to extract text: {e}"))
+        .inspect(|_| tracing::info!("extracted text from file: {path}"))
+        .map_err(Into::into)
 }
 
 fn open_path<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
