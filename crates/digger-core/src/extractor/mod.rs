@@ -1,5 +1,4 @@
 use std::path::Path;
-
 mod docx;
 mod pdf;
 
@@ -13,6 +12,6 @@ pub fn extract_text<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
     {
         "docx" => docx::read_docx(path),
         "pdf" => pdf::read_pdf(path),
-        _ => std::fs::read_to_string(path).map_err(|e| e.into()),
+        _ => std::fs::read_to_string(path).map_err(Into::into),
     }
 }

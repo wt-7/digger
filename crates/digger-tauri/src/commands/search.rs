@@ -1,5 +1,5 @@
 use std::{
-    collections::{BTreeSet, BinaryHeap},
+    collections::BinaryHeap,
     sync::atomic::{AtomicUsize, Ordering},
 };
 
@@ -23,10 +23,10 @@ pub struct Search {
 
 #[tauri::command]
 #[tracing::instrument]
-pub async fn file_search(args: Args) -> Result<Search, String> {
+pub async fn file_search(args: Args) -> crate::Result<Search> {
     let start_time = std::time::Instant::now();
     let searcher = args.worker();
-    let matcher = args.matcher().map_err(|e| e.to_string())?;
+    let matcher = args.matcher()?;
     let walker = args.walker();
 
     let files_searched = AtomicUsize::new(0);
@@ -62,9 +62,8 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
 
             let path = entry.path();
             if searcher.should_search(path) {
-                let search_result = searcher.search_path(path, matcher);
                 files_searched.fetch_add(1, Ordering::Relaxed);
-                if let Ok(search_result) = search_result {
+                if let Ok(search_result) = searcher.search_path(path, matcher) {
                     s.send(search_result).ok();
                 }
             }
@@ -75,9 +74,7 @@ pub async fn file_search(args: Args) -> Result<Search, String> {
 
     drop(s);
 
-    let matches = result_thread
-        .join()
-        .map_err(|_| "Couldn't join the result thread")?;
+    let matches = result_thread.join().expect("failed to join result thread");
 
     let duration = start_time.elapsed();
 

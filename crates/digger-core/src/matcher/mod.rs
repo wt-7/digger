@@ -17,8 +17,8 @@ pub struct PatternMatcher {
 }
 
 impl PatternMatcher {
-    /// Find all matches in the given contents. Intended to be used within a worker
-    pub(crate) fn find_matches(&self, contents: &str) -> anyhow::Result<Matches> {
+    /// Find all matches in the given contents.
+    pub(crate) fn find_matches(&self, contents: &str) -> Option<Matches> {
         let mut matches = Matches::new();
         let mut required_needles = BTreeSet::new();
         let line_positions = LinePositions::from(contents);
@@ -40,12 +40,14 @@ impl PatternMatcher {
                 .push(context);
         }
 
-        anyhow::ensure!(
-            required_needles == self.required_needles && !matches.is_empty(),
-            "Not all required needles were matched"
-        );
+        let not_all_required_needles_matched =
+            required_needles != self.required_needles && !matches.is_empty();
 
-        Ok(matches)
+        if not_all_required_needles_matched || matches.is_empty() {
+            return None;
+        }
+
+        Some(matches)
     }
 }
 
