@@ -2,8 +2,10 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod args;
 mod commands;
+mod error;
 mod logging;
 use commands::*;
+use error::Result;
 
 fn main() {
     logging::init();

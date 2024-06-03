@@ -4,24 +4,24 @@ use std::path::Path;
 
 #[tauri::command]
 #[tracing::instrument]
-pub async fn open_in_explorer(path: &str) -> Result<(), String> {
+pub async fn open_in_explorer(path: &str) -> crate::Result<()> {
     Path::new(path)
         .parent()
         .context("Failed to get parent path")
         .and_then(open_path)
-        .map_err(|e| e.to_string())
+        .map_err(Into::into)
 }
 
 #[tauri::command]
 #[tracing::instrument]
-pub async fn open_with_default(path: &str) -> Result<(), String> {
-    open_path(path).map_err(|e| e.to_string())
+pub async fn open_with_default(path: &str) -> crate::Result<()> {
+    open_path(path).map_err(Into::into)
 }
 
 #[tauri::command]
 #[tracing::instrument]
-pub async fn preview_file(path: &str) -> Result<String, String> {
-    extractor::extract_text(path).map_err(|e| e.to_string())
+pub async fn preview_file(path: &str) -> crate::Result<String> {
+    extractor::extract_text(path).map_err(Into::into)
 }
 
 fn open_path<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
@@ -29,12 +29,12 @@ fn open_path<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
     let command = "explorer";
     #[cfg(target_os = "macos")]
     let command = "open";
-
     let path = path.as_ref();
-
-    anyhow::ensure!(path.exists(), "File does not exist");
-
-    let status = std::process::Command::new(command).arg(path).status()?;
-
-    status.success().then_some(()).context("Non-zero exit code")
+    anyhow::ensure!(path.exists(), "file path does not exist");
+    std::process::Command::new(command)
+        .arg(path)
+        .status()?
+        .success()
+        .then_some(())
+        .context("failed to open the file with its default application")
 }
