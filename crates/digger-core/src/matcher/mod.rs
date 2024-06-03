@@ -19,7 +19,7 @@ pub struct PatternMatcher {
 impl PatternMatcher {
     /// Find the matches in the given contents. If the contents do not contain all of the required needles,
     /// it will be considered a non-match.
-    pub(crate) fn find_matches(&self, contents: &str) -> Option<Matches> {
+    pub(crate) fn compute_match(&self, contents: &str) -> Option<Matches> {
         let mut matches = Matches::new();
         let mut required_needles = BTreeSet::new();
         let line_positions = LinePositions::from(contents);
@@ -119,7 +119,7 @@ mod tests {
             .build()
             .unwrap();
 
-        let matches = matcher.find_matches(text).unwrap();
+        let matches = matcher.compute_match(text).unwrap();
 
         assert_eq!(matches.len(), 2);
 
@@ -158,7 +158,7 @@ mod tests {
             .build()
             .unwrap();
 
-        let matches = matcher.find_matches(text).unwrap();
+        let matches = matcher.compute_match(text).unwrap();
 
         assert_eq!(matches.len(), 1);
 
@@ -186,7 +186,7 @@ mod tests {
             .build()
             .unwrap();
 
-        let matches = matcher.find_matches(text);
+        let matches = matcher.compute_match(text);
 
         assert!(matches.is_none());
     }
@@ -208,7 +208,7 @@ mod tests {
             .build()
             .unwrap();
 
-        let matches = matcher.find_matches(text);
+        let matches = matcher.compute_match(text);
 
         assert!(matches.is_some());
     }

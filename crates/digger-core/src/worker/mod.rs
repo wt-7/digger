@@ -44,10 +44,10 @@ impl SearchWorker {
     ) -> anyhow::Result<MatchedFile> {
         let path = path.as_ref();
         let contents = crate::extractor::extract_text(path)
-            .inspect_err(|e| tracing::error!("failed to extract text: {e}"))?;
+            .inspect_err(|e| tracing::error!(?path, ?e, "failed to extract text"))?;
 
         let matches = matcher
-            .find_matches(&contents)
+            .compute_match(&contents)
             .context("No matches found")?;
 
         MatchedFile::new(path, matches)
