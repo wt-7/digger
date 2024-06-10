@@ -9,8 +9,8 @@ pub async fn open_in_explorer(path: &str) -> crate::Result<()> {
         .parent()
         .context("Failed to get parent path")
         .and_then(open_path)
-        .inspect_err(|e| tracing::error!("failed to open parent path: {e}"))
-        .inspect(|_| tracing::info!("opened parent path of: {path}"))
+        .inspect_err(|err| tracing::error!(?err, "failed to open parent path"))
+        .inspect(|_| tracing::info!(?path, "opened parent path in explorer"))
         .map_err(Into::into)
 }
 
@@ -18,8 +18,8 @@ pub async fn open_in_explorer(path: &str) -> crate::Result<()> {
 #[tracing::instrument]
 pub async fn open_with_default(path: &str) -> crate::Result<()> {
     open_path(path)
-        .inspect_err(|e| tracing::error!("failed to open path: {e}"))
-        .inspect(|_| tracing::info!("opened path: {path}"))
+        .inspect_err(|err| tracing::error!(?err, "failed to open path"))
+        .inspect(|_| tracing::info!(?path, "opened path with default application"))
         .map_err(Into::into)
 }
 
@@ -27,8 +27,8 @@ pub async fn open_with_default(path: &str) -> crate::Result<()> {
 #[tracing::instrument]
 pub async fn preview_file(path: &str) -> crate::Result<String> {
     extractor::extract_text(path)
-        .inspect_err(|e| tracing::error!("failed to extract text: {e}"))
-        .inspect(|_| tracing::info!("extracted text from file: {path}"))
+        .inspect_err(|err| tracing::error!(?err, "failed to extract text from file"))
+        .inspect(|_| tracing::info!(?path, "extracted text from file"))
         .map_err(Into::into)
 }
 
