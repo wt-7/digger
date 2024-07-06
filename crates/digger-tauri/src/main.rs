@@ -8,8 +8,6 @@ use commands::*;
 use error::Result;
 
 fn main() {
-    logging::init();
-
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             open_in_explorer,
@@ -19,6 +17,8 @@ fn main() {
         ])
         .setup(|app| {
             let handle = app.handle();
+            logging::init_logging(&handle);
+
             let window = create_window(&handle)?;
 
             #[cfg(debug_assertions)]
