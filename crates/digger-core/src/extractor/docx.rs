@@ -5,7 +5,8 @@ use std::path::Path;
 use zip::ZipArchive;
 
 pub fn read_docx<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
-    let file = File::open(path.as_ref())?;
+    let path = path.as_ref();
+    let file = File::open(path)?;
 
     let mut archive = ZipArchive::new(file)?;
 
@@ -37,11 +38,12 @@ pub fn read_docx<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
                     to_read = false;
                 }
             }
-            Err(e) => panic!(
-                "Error at position {}: {:?}",
-                xml_reader.buffer_position(),
-                e
-            ),
+            Err(e) => {
+                let buffer_position = xml_reader.buffer_position();
+                tracing::error!(?e, ?path, ?buffer_position, "Error reading docx");
+                anyhow::bail!("Error reading docx")
+            }
+
             _ => (),
         }
     }
