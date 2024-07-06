@@ -1,10 +1,7 @@
-use std::path::Path;
-
-use anyhow::Context;
-
-use crate::matcher::PatternMatcher;
-
 use self::matched_file::MatchedFile;
+use crate::matcher::PatternMatcher;
+use anyhow::Context;
+use std::path::Path;
 pub mod matched_file;
 
 /// High level worker for managing searches.

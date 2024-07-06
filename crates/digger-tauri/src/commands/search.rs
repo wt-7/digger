@@ -1,12 +1,10 @@
+use crate::args::Args;
+use digger_core::worker::matched_file::MatchedFile;
+use ignore::WalkState;
 use std::{
     collections::BinaryHeap,
     sync::atomic::{AtomicUsize, Ordering},
 };
-
-use crate::args::Args;
-use digger_core::worker::matched_file::MatchedFile;
-
-use ignore::WalkState;
 
 /// Somewhat contrived upper bound for the channel capacity.
 /// The goal is to have it large enough to not block the search, but not so large that it uses too much memory.

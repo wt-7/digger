@@ -1,6 +1,5 @@
-use std::path::{Path, PathBuf};
-
 use crate::matcher::Matches;
+use std::path::{Path, PathBuf};
 
 #[derive(Debug, serde::Serialize)]
 pub struct MatchedFile {
